@@ -1,3 +1,53 @@
-.wrapper__choicebox{
+html {
+    background-color: gray;
+}
+body{
+
+    background-color: rgb(240, 235, 235);
+}
+
+.wrapperChoicebox{
+    margin:auto;
+    width: 400px;
     display: flex;
+    font-style: italic;
+    font-size: 24px;
+   
+}
+.Outsider{
+    margin:auto;
+}
+.wrapper{
+  margin-top: 20%;
+  width: 400px;
+  height: 300px;
+  border: 2px solid black;
+  margin: auto;
+  font-style: italic;
+  font-size: 24px;
+  text-align: justify;
+}
+.Inner_wrapper{
+    display:flex;
+    justify-content: space-around;
+    text-align: justify;
+    
+}
+
+.convertedAmount{
+    margin: auto;
+ 
+}
+
+.convertedAmount{
+    margin-left: 40px;
+    margin-top: 20px;
+
+    
+}
+
+.inputAmount{
+   margin-left: 1000px;
+    width: 300px;
+    height: 60px;
 }

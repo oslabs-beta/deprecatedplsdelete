@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-// import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import axios from 'axios'
 
-const dummyData = []
+const dummyData = [] //
 
 class App extends Component {
    constructor(props){
@@ -11,7 +12,7 @@ class App extends Component {
       curr1: '', //USD
       curr2: '', //EUR
       value: '', //your amount
-      output: 2, //conversion rate
+      conversionRate: 2,
       converted: '' //your amount * conversionrate
     };
     this.curr1Change = this.curr1Change.bind(this);
@@ -33,9 +34,16 @@ class App extends Component {
   
   }
 
-  componentDidUpdate() {
   
-  }
+  // componentDidUpdate() {
+  //   axios.post('/api', { curr1:this.state.curr1, curr2: this.state.curr2 })
+  //     .then((response) => {
+  //       console.log(response);
+  //     }, (error) => {
+  //       console.log(error);
+  //     });
+    
+  // }
 
   render() {
      
@@ -43,6 +51,7 @@ class App extends Component {
       <>
         <ConversionBox info= {this.state} />
         <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change}  valueChange={this.valueChange} />
+        <Toolbar/>
       </>
     );
   }
@@ -50,8 +59,22 @@ class App extends Component {
 }
 
 class Toolbar extends Component {
-
+render() {
+    return(
+      <>
+ <LineChart width={500} height={300} data={data}>
+    <XAxis dataKey="name"/>
+    <YAxis/>
+    <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
+    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+    <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+  </LineChart>
+      </>
+  );
+  }
 }
+
+
 
 class ConversionBox extends Component {
 
@@ -61,24 +84,26 @@ class ConversionBox extends Component {
       
       <div className="wrapper">
         <div className="Inner_wrapper">
+
           <div className="amountToConvert">
             {/* amt & curr1 to convert */}
             <label className="">Your amount</label>
             <div className=""> {this.props.info.value}</div>
         </div>
+
         <div className="CurrToConvert">
             {/* amt & curr1 to convert */}
           <label className="">Your input currency</label>
           <div className=""> {this.props.info.curr1}</div>
         </div>
-        <div className="convertedAmount">
-          <label className=""></label>
-          <div className=""> {this.props.info.value * this.props.info.output} IN {this.props.info.curr2}</div>
-        </div>
-        </div>
-        
+
       </div>
 
+       <div className="convertedAmount">
+          <label className=""></label>
+          <div className="Outputer"> {this.props.info.value * this.props.info.conversionRate} IN {this.props.info.curr2}</div>
+        </div>
+        </div>
       </>
   )}
 }
@@ -89,21 +114,25 @@ class ChoiceBox extends Component {
        const options = arr.map((el, i) => <option key={i}> {el} </option>);
     return(
       <>
+        <div className="wrapper__ON_ChoiceBox_style">
+        <div className="wrapper__ON_ChoiceBox">
         <div className="wrapperChoicebox" >
-         <label className="c1test">Currency 1</label>
-          <select value={this.props.info.curr1} onChange={this.props.curr1Change} required>
-            <option>Choose...</option>
-            {options}
-          </select>
-          <label  className="c2test">Currency 2</label>
-          <select value={this.props.info.curr2} onChange={this.props.curr2Change} required>
-            <option >Choose...</option>
-            {options}
-          </select>
+                <label className="c1test">Currency 1</label>
+                <select value={this.props.info.curr1} onChange={this.props.curr1Change} required>
+                <option>Choose...</option>
+                {options}
+                </select>
+                <label  className="c2test">Currency 2</label>
+                <select value={this.props.info.curr2} onChange={this.props.curr2Change} required>
+                <option >Choose...</option>
+                {options}
+                </select>
         </div>
-        <div className="wrapperInput">
-          <input type="text" value={this.props.info.value} onChange={this.props.valueChange} className="inputAmount" placeholder="Input your amount here" required />
+                <div className="wrapperInput">
+                    <input  type="text" value={this.props.info.value} onChange={this.props.valueChange} className="inputAmount" placeholder="Input your amount here" required />
+                </div>
         </div>
+      </div>
       </>
   )}
 }
