@@ -15,7 +15,7 @@ mongoose
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  history: { type: historySchema }
+  history: { type: currencySchema }
 });
 
 
@@ -30,7 +30,4 @@ const historySchema = new Schema({
 })
 
 
-
-
-
-module.exports = mongoose.model('', currencySchema); // first param is collection name in DB
+module.exports = mongoose.model('', userSchema); // first param is collection name in DB
