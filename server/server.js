@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
+const currencyApi = require('./routes/currencyApi')
 
 
 const PORT = 3000 // may need to change ML
@@ -11,6 +12,8 @@ app.use(express.json()); //bodyParser deprecatd ML
 
 app.use(express.static(path.join(__dirname, '../' ))); //serves the index.html
 
+// define route handlers
+app.use('/currencyApi', currencyApi);
 
 
 
