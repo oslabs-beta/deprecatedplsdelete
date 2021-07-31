@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { LineChart, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
-import axios from 'axios'
+import { ResponsiveContainer, LineChart, Tooltip, AreaChart, Area, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { format, parseISO, subDays } from "date-fns";
+import axios from 'axios';
 
-const dummyData = [] //
+const dummyData = []
 
 class App extends Component {
    constructor(props){
@@ -21,6 +22,9 @@ class App extends Component {
   }
 
   curr1Change(event){
+  // res.locals.history
+  // res.locals.rate
+  //
     this.setState({curr1: event.target.value});
    }
   curr2Change(event){
@@ -35,41 +39,89 @@ class App extends Component {
   }
 
   
-  // componentDidUpdate() {
-  //   axios.post('/api', { curr1:this.state.curr1, curr2: this.state.curr2 })
-  //     .then((response) => {
-  //       console.log(response);
-  //     }, (error) => {
-  //       console.log(error);
-  //     });
+  componentDidUpdate() {
+    axios.post('/api', { curr1:this.state.curr1, curr2: this.state.curr2 })
+      .then(response => {
+        console.log(response);
+      }, (error) => {
+        console.log(error);
+      })
+      .catch(error => {
+        console.log(error.toJSON());
+      })
     
-  // }
+  }
 
   render() {
      
     return (
       <>
         <ConversionBox info= {this.state} />
-        <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change}  valueChange={this.valueChange} />
+        <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change} valueChange={this.valueChange} />
         <Toolbar/>
       </>
     );
   }
+//App
+  //Toolbar
+  //Holder(state is here)
+    //Conversionbox
+    //ChoiceBox
+}
+
+class Header extends Component {
 
 }
 
 class Toolbar extends Component {
 render() {
+  const data=[];
+  for(let num =30; num>=0; num--) {
+     data.push({
+         data: subDays(new Date(), num).toISOString().substr(0, 10),
+         value: 1 + Math.random()
+     });
+  }
     return(
-      <>
- <LineChart width={500} height={300} data={data}>
-    <XAxis dataKey="name"/>
-    <YAxis/>
-    <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-    <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-    <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-  </LineChart>
-      </>
+  
+  <div className ="build">
+  <div className ="butt">
+  <button>Week</button>
+  <button>Month</button>
+  </div>
+      <div className ="wrapper2">
+       
+        <ResponsiveContainer width={700} height={400}>
+          <AreaChart data={data}>
+            <defs>
+              <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4} />
+                <stop offset="75%" stopColor="#2451B7" stopOpacity={0.05} />
+              </linearGradient>
+            </defs>
+            <Area dataKey="value" stroke="#2451B7" fill="url(#color)" />
+                <XAxis dataKey="date"
+                    tick={(str) => {
+                      const date = parseISO(str);
+                      if (date.getDate() % 7 === 0) {
+                          return format(date, "MMM, d");
+                      }
+                      return "";
+                    }}  
+                />
+                    <YAxis
+                    datakey="value"
+                    axisLine={false}
+                    tickLine={false}
+                    tickCount={8}
+                    tickFormatter={(number) => `$${number.toFixed(2)}`}  />
+              <Tooltip/>
+           <CartesianGrid opacity={0.1} vertical={false} />
+          </AreaChart>
+        </ResponsiveContainer>
+
+      </div>
+      </div>
   );
   }
 }
@@ -80,8 +132,7 @@ class ConversionBox extends Component {
 
   render() {
     return(
-      <>
-      
+    <>
       <div className="wrapper">
         <div className="Inner_wrapper">
 
@@ -95,16 +146,17 @@ class ConversionBox extends Component {
             {/* amt & curr1 to convert */}
           <label className="">Your input currency</label>
           <div className=""> {this.props.info.curr1}</div>
+        
         </div>
-
       </div>
 
        <div className="convertedAmount">
-          <label className=""></label>
-          <div className="Outputer"> {this.props.info.value * this.props.info.conversionRate} IN {this.props.info.curr2}</div>
-        </div>
-        </div>
-      </>
+        <label className=""></label>
+        <div className="Outputer"> {this.props.info.value * this.props.info.conversionRate} IN {this.props.info.curr2}</div>
+      </div>
+
+      </div>
+    </>
   )}
 }
 
