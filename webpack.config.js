@@ -13,7 +13,7 @@ module.exports = {
   mode: process.env.NODE_ENV,
   devServer: {
     compress: true,
-    publicPath: '/build/',
+    publicPath: '/dist',
     proxy: {
       '/api/**': 'http://localhost:3000'
     }
