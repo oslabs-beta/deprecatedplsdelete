@@ -12,8 +12,22 @@ mongoose
     dbName: "" //fill in with name of database
   });
 
-const currencySchema = new Schema()
+const userSchema = new Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
+  history: { type: historySchema }
+});
 
+
+
+const currencySchema = new Schema ({
+  currency : [historySchema]
+})
+
+const historySchema = new Schema({
+  date: String,
+  rate: Number,
+})
 
 
 
