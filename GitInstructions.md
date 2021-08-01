@@ -34,7 +34,7 @@ GUTEN MORGEN, OHNE SORGEN
 
 COMMITMENT CAN BE CRUCIAL (it really is so please do it)
 
-  Please commit early and OFTEN. Basically, AT LEAST every hour or whenever anything framework is set into the file or completed.
+  Please commit early and OFTEN. Basically, AT LEAST every hour or whenever anything framework is set into the file or completed. Look here for the ridiculous amount of commits I made tonight, but this is fine! https://github.com/codesmith27/yeti-crab/commits/dev
   Run the following:
 
     git status
