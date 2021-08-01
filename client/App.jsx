@@ -62,11 +62,6 @@ class App extends Component {
       </>
     );
   }
-//App
-  //Toolbar
-  //Holder(state is here)
-    //Conversionbox
-    //ChoiceBox
 }
 
 class Header extends Component {
@@ -125,8 +120,6 @@ render() {
   );
   }
 }
-
-
 
 class ConversionBox extends Component {
 
