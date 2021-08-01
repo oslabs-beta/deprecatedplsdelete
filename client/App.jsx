@@ -6,6 +6,12 @@ import axios from 'axios';
 
 const dummyData = []
 
+| App
+  |Toolbar
+  |StateHolder
+    |ConversionBox
+    |ChoiceBox
+    
 class App extends Component {
    constructor(props){
     super(props);
