@@ -22,9 +22,15 @@ When you have a feature working, run the following:
   git add file1 file2 file3 file4 etc.
     ONLY commit the files YOU HAVE CHANGED. I have included .gitignore and package-lock.json into the repo as a way to sync dependencies within the team. Please do NOT EVER add node_modules directory.
   git commit -m '[your message here]'
-  git push origin dev
 
-When you or your team has 
+
+When you or your team has built something that works, follow the feature working instructions directly above, then:
+  git pull origin dev
+  git push origin dev
+Now, message the team for everyone to run the same commands. This will ensure the team is working as closely as possible on a matching codebase.
+
+As this is a relatively simple
+
 ~Mark Liu, 31.7.21
 
 
