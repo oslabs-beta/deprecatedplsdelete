@@ -13,7 +13,7 @@ router.get('/', currencyController.getRate, currencyController.getHistory, datab
     res.status(200).send(res.locals);
 })
 
-
+//Hello all//
 
 
 
