@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { ResponsiveContainer, LineChart, Tooltip, AreaChart, Area, Line, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { ResponsiveContainer, Tooltip, AreaChart, Area, CartesianGrid, XAxis, YAxis } from 'recharts';
 import { format, parseISO, subDays } from "date-fns";
 import axios from 'axios';
 
 const dummyData = []
-
-| App
-  |Toolbar
-  |StateHolder
-    |ConversionBox
-    |ChoiceBox
-    
+// Back end is giving all data at once. Unless they can separate out functionality, state cannot be separated between graph and stateholder and must re-render on every single change.
+// Else, we can BLOW UP state to hold ALL database for the user as well as current conversion rates & amounts. This would slow down the app significantly.
+// | App
+//   |Graph (Graph) (only accesses database?)
+//   |StateHolder
+//     |ConversionBox
+//     |ChoiceBox
+// Changes Mark made:
+  // renamed Toolbar to graph
+  // in Graph, ticklines/axislines
+// To do:
+  // build stateholder
+  // convert everything to hooks
+  // extra features
 class App extends Component {
    constructor(props){
     super(props);
@@ -30,21 +37,23 @@ class App extends Component {
   curr1Change(event){
   // res.locals.history
   // res.locals.rate
-  //
     this.setState({curr1: event.target.value});
+
    }
   curr2Change(event){
     this.setState({curr2: event.target.value});
+
   }
   valueChange(event){
     this.setState({value: event.target.value});
+
   }
   
   componentDidMount() {
   
   }
 
-  
+  //to fetch all data?
   componentDidUpdate() {
     axios.post('/api', { curr1:this.state.curr1, curr2: this.state.curr2 })
       .then(response => {
@@ -64,20 +73,23 @@ class App extends Component {
       <>
         <ConversionBox info= {this.state} />
         <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change} valueChange={this.valueChange} />
-        <Toolbar/>
+        <Graph/>
       </>
     );
   }
 }
 
-class Header extends Component {
-
+// state is held 
+class StateHolder extends Component {
+  // hold ConversionBox and ChoiceBox here
+  // 
 }
 
-class Toolbar extends Component {
+class Graph extends Component {
 render() {
+  // testing
   const data=[];
-  for(let num =30; num>=0; num--) {
+  for(let num = 30; num >= 0; num--) {
      data.push({
          data: subDays(new Date(), num).toISOString().substr(0, 10),
          value: 1 + Math.random()
@@ -92,16 +104,18 @@ render() {
   </div>
       <div className ="wrapper2">
        
-        <ResponsiveContainer width={700} height={400}>
+        <ResponsiveContainer width={1000} height={400}>
           <AreaChart data={data}>
             <defs>
               <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4} />
-                <stop offset="75%" stopColor="#2451B7" stopOpacity={0.05} />
+                <stop offset="0%" stopColor="#2451B8" stopOpacity={0.4} />
+                <stop offset="75%" stopColor="#2451B8" stopOpacity={0.05} />
               </linearGradient>
             </defs>
+
             <Area dataKey="value" stroke="#2451B7" fill="url(#color)" />
-                <XAxis dataKey="date"
+
+                <XAxis dataKey="date" tickLine={false} 
                     tick={(str) => {
                       const date = parseISO(str);
                       if (date.getDate() % 7 === 0) {
@@ -112,7 +126,7 @@ render() {
                 />
                     <YAxis
                     datakey="value"
-                    axisLine={false}
+                    
                     tickLine={false}
                     tickCount={8}
                     tickFormatter={(number) => `$${number.toFixed(2)}`}  />
@@ -191,7 +205,7 @@ class ChoiceBox extends Component {
 
 export default App;
 // COMPONENT LIST
-  //1. head toolbar with logo, title, and login
+  //1. head Graph with logo, title, and login
   //2. conversion box
   //3. choice box, dropdowns to pick, labels
   //4. graph
