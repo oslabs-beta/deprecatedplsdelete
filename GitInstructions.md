@@ -34,7 +34,7 @@ GUTEN MORGEN, OHNE SORGEN
 
 COMMITMENT CAN BE CRUCIAL (it really is so please do it)
 
-  Please commit early and OFTEN. Basically, twice an hour or whenever anything framework is set into the file or completed.
+  Please commit early and OFTEN. Basically, AT LEAST every hour or whenever anything framework is set into the file or completed.
   Run the following:
 
     git status
@@ -65,7 +65,9 @@ SHARE THE LOVE
 
 
 Please run these steps independently precisely following the order above.
-The nuclear option which will always work, and most seniors have resorted to throughout their time at Codesmith (as well as people in the industry), is to copy your code into separate backup files, DELETE YOUR ENTIRE REPO (it's on GitHub, don't worry!), clone the repo again, paste in your code, and go from the Commit section above.
+The nuclear option which will always work, and most seniors have resorted to throughout their time at Codesmith (as well as people in the industry), is to copy your code into separate backup files, delete the ENTIRE FOLDER (it's on GitHub, don't worry!), clone the repo again, paste in your code, and go from the Commit section above.
+
+
 
 If there are any issues, message me individually and we can jump into a Zoom room together!
 
