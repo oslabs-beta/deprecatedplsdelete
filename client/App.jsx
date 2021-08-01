@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { ResponsiveContainer, Tooltip, AreaChart, Area, CartesianGrid, XAxis, YAxis } from 'recharts';
+import { ResponsiveContainer, Tooltip, AreaChart, Area, CartesianGrid, XAxis, YAxis, Line } from 'recharts';
 import { format, parseISO, subDays } from "date-fns";
 import axios from 'axios';
 
@@ -34,17 +34,17 @@ class App extends Component {
     this.valueChange = this.valueChange.bind(this);
   }
 
-  curr1Change(event){
+  curr1Change(event){         // goes to ChoiceBox
   // res.locals.history
   // res.locals.rate
     this.setState({curr1: event.target.value});
 
    }
-  curr2Change(event){
+  curr2Change(event){         // goes to ChoiceBox
     this.setState({curr2: event.target.value});
 
   }
-  valueChange(event){
+  valueChange(event){         // goes to ChoiceBox
     this.setState({value: event.target.value});
 
   }
@@ -82,7 +82,7 @@ class App extends Component {
 // state is held 
 class StateHolder extends Component {
   // hold ConversionBox and ChoiceBox here
-  // 
+  // state will hold
 }
 
 class Graph extends Component {
@@ -91,7 +91,7 @@ render() {
   const data=[];
   for(let num = 30; num >= 0; num--) {
      data.push({
-         data: subDays(new Date(), num).toISOString().substr(0, 10),
+         date: subDays(new Date(), num).toISOString().substr(0, 10),
          value: 1 + Math.random()
      });
   }
@@ -108,29 +108,30 @@ render() {
           <AreaChart data={data}>
             <defs>
               <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#2451B8" stopOpacity={0.4} />
-                <stop offset="75%" stopColor="#2451B8" stopOpacity={0.05} />
+                <stop offset="0%" stopColor="#2451B8" stopOpacity={0.5} />
+                <stop offset="75%" stopColor="#2451B8" stopOpacity={0.1} />
               </linearGradient>
             </defs>
 
             <Area dataKey="value" stroke="#2451B7" fill="url(#color)" />
 
                 <XAxis dataKey="date" tickLine={false} 
-                    tick={(str) => {
-                      const date = parseISO(str);
-                      if (date.getDate() % 7 === 0) {
-                          return format(date, "MMM, d");
-                      }
-                      return "";
-                    }}  
+                    // tick={(str) => {
+                    //   const date = parseISO(str);
+                    //   if (date.getDate() % 7 === 0) {
+                    //       return format(date, "MMM, d");
+                    //   }
+                    //   return "";
+                    // }}  
                 />
                     <YAxis
                     datakey="value"
                     
                     tickLine={false}
-                    tickCount={8}
+                    tickCount={6}
                     tickFormatter={(number) => `$${number.toFixed(2)}`}  />
               <Tooltip/>
+              {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
            <CartesianGrid opacity={0.1} vertical={false} />
           </AreaChart>
         </ResponsiveContainer>
