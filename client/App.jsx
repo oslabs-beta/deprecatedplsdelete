@@ -160,18 +160,19 @@ class Graph extends Component {
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="#2451B8" stopOpacity={0.5} />
-                  <stop offset="75%" stopColor="#2451B8" stopOpacity={0.1} />
+                  {/* <stop offset="0%" stopColor="#00d8ff" stopOpacity={0.5} />
+                  <stop offset="75%" stopColor="#00d8ff" stopOpacity={0.1} /> */}
                 </linearGradient>
               </defs>
 
-              <Area dataKey="value" stroke="#2451B7" fill="url(#color)" />
+              <Area dataKey="value" stroke="#00d8ff" strokeWidth={3} fill="url(#color)" />
 
               <XAxis
                 dataKey="date"
                 tickLine={false}
-                tickMargin={30}
+                tickMargin={35}
                 angle={90}
+                height={75}
                 // tick={(str) => {
                 //   const date = parseISO(str);
                 //   if (date.getDate() % 7 === 0) {
@@ -183,10 +184,10 @@ class Graph extends Component {
               <YAxis
                 datakey="value"
                 tickLine={false}
-                // tickInterval={100}
-                // tickCount={6}
-                domain = {['dataMin', 'dataMax']}
-                tickFormatter={(number) => `$${number.toFixed(2)}`}
+                tickCount={4}
+                domain={['auto', 'auto']}
+                // domain = {[dataMin=>(dataMin * .98), dataMax=>(dataMax* 1.02)]}
+                tickFormatter={(number) => `${number.toFixed(2)}`}
               />
               <Tooltip />
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
@@ -211,14 +212,14 @@ class ConversionBox extends Component {
           <div className="Inner_wrapper">
             <div className="amountToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your amount: </label>
-              <div className="amountDisplay"> {this.props.info.value}</div>
+              <label className="">Your amount</label>
+              <div className=""> {this.props.info.value}</div>
             </div>
 
             <div className="CurrToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your input currency: </label>
-              <div className="inputDisplay"> {this.props.info.curr1}</div>
+              <label className="">Your input currency</label>
+              <div className=""> {this.props.info.curr1}</div>
             </div>
           </div>
 
