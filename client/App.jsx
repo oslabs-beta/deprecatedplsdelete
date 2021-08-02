@@ -135,6 +135,25 @@ class StateHolder extends Component {
 }
 
 class Graph extends Component {
+     constructor(props) {
+    super(props);
+      this.weeks = this.weeks.bind(this);
+      this.months = this.months.bind(this);
+      this.state = {
+        month: '',
+        week:''
+      }
+    };
+ 
+  
+  weeks(event) {
+     
+  }
+  
+  months(event) {
+
+  }
+   
   render() {
     // testing
     this.props.info.history;
@@ -148,7 +167,8 @@ class Graph extends Component {
         value: this.props.info.history[el][this.props.info.curr2]
       });
     }
-    console.log(data);
+  //  this.setState({month:});
+ 
     return (
       <div className="build">
         <div className="butt">
