@@ -213,12 +213,12 @@ class ConversionBox extends Component {
             <div className="amountToConvert">
               {/* amt & curr1 to convert */}
               <label className="">Your amount</label>
-              <div className=""> {this.props.info.value}</div>
+              <div className="amountDisplay"> {this.props.info.value}</div>
             </div>
 
             <div className="CurrToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your input currency</label>
+              <label className="inputDisplay">Your input currency</label>
               <div className=""> {this.props.info.curr1}</div>
             </div>
           </div>
