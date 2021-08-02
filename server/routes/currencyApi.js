@@ -7,25 +7,19 @@ const router = express.Router();
 const databaseController = require('../controllers/databaseController');
 
 // router.get to API
-router.post(
-  '/',
-  currencyController.getRate,
- currencyController.getHistory,
-
-  (req, res) => {
+router.post('/', currencyController.getRate, currencyController.getHistory, (req, res) => {
     res.status(200).send(res.locals.rate);
   }
 );
 
-/*  currencyController.getHistory,
 router.get('/login', databaseController.userLogin, (req, res) => {
-    res.status(200).redirect('/')
+  res.status(200).redirect('/')
 })
-*/
+
 
 /*
 router.get('/signup', databaseController.createUser, (req, res) => {
-    res.status(200).redirect('/')
+  res.status(200).redirect('/')
 })
 */
 

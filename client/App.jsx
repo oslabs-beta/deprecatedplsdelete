@@ -168,8 +168,8 @@ class Graph extends Component {
 
               <XAxis
                 dataKey="date"
-                tickLine={true}
-                tickMargin={5}
+                tickLine={false}
+                tickMargin={30}
                 angle={90}
                 // tick={(str) => {
                 //   const date = parseISO(str);
@@ -265,7 +265,7 @@ class ChoiceBox extends Component {
             </div>
             <div className="wrapperInput">
               <input
-                type="text"
+                type="number"
                 value={this.props.info.value}
                 onChange={this.props.valueChange}
                 className="inputAmount"
