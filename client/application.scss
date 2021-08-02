@@ -47,7 +47,6 @@ body {
   width: 700px;
   height: 1000px;
   margin: auto;
-  font-style: italic;
   font-size: 14px;
   text-align: justify;
 }
@@ -112,7 +111,8 @@ body {
 .butt button {
     border: 3px solid #00d8ff;
     border-radius: 15px;
-    background-color: white;
+    background-color: #00d8ff;
+    color: white;
     font-size: 20px;
     padding: 10px;
 }
