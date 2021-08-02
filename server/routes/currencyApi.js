@@ -9,7 +9,7 @@ const databaseController = require('../controllers/databaseController')
 
 
 // router.get to API
-router.get('/', currencyController.getRate, currencyController.getHistory, databaseController.userLogin, (req, res) => {
+router.get('/', currencyController.getRate, currencyController.getHistory, databaseController.createUser, databaseController.addQueryData, databaseController.getQueryData, (req, res) => {
     res.status(200).send(res.locals);
 })
 

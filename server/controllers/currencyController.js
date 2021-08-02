@@ -46,7 +46,7 @@ currencyController.getHistory = async (req, res, next) => {
   try {
     const result = await fetch(`https://api.exchangeratesapi.io/v1/timeseries?access_key=${currencyApiKey}&start_date=${aMonthAgo}&end_date=${today}&base=USD&symbols=EUR`)
     const json = await result.json();
-    console.log('HISTORY RESULT', json);
+    // console.log('HISTORY RESULT', json);
     res.locals.history = json;
     return next();
   }
