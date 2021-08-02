@@ -283,8 +283,8 @@ class ConversionBox extends Component {
 
             <div className='CurrToConvert'>
               {/* amt & curr1 to convert */}
-              <label className='inputDisplay'>Your input currency</label>
-              <div className=''> {this.props.info.curr1}</div>
+              <label className=''>Your input currency</label>
+              <div className='inputDisplay'> {this.props.info.curr1}</div>
             </div>
           </div>
 
@@ -512,10 +512,11 @@ class ChoiceBox extends Component {
                 value={this.props.info.value}
                 onChange={this.props.valueChange}
                 className='inputAmount'
-                placeholder='Input your amount here'
+                placeholder='  Input your amount here'
                 required
               />
             </div>
+            <h2>{this.props.info.curr1} TRACKER</h2>
           </div>
         </div>
       </>
