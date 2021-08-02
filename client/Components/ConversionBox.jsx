@@ -28,7 +28,7 @@ class ConversionBox extends Component {
               {(this.props.info.value * this.props.info.conversionRate).toFixed(
                 3
               )}{' '}
-              IN {this.props.info.curr2}
+              in {this.props.info.curr2}
             </div>
           </div>
         </div>

@@ -212,7 +212,7 @@ class ChoiceBox extends Component {
                 required
               />
             </div>
-            <h2>{this.props.info.curr1} HISTORY</h2>
+            <h2>{this.props.info.curr1} TAFFOVERTER HISTORY</h2>
           </div>
         </div>
       </>
