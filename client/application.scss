@@ -22,11 +22,16 @@ body {
 .wrapperChoicebox select {
     border: 2px solid #00d8ff;
     border-radius: 20px;
-    font-size: 25px;
+    font-size: 20px;
     margin: 5px;
     width: 180px;
     height: 45px;
-    
+    text-align-last: center;
+
+}
+
+.wrapperChoiceBox option {
+    font-size: 40px;
 }
 
 .c1test {
@@ -53,9 +58,6 @@ body {
     font-family: Noto Sans, 'sans-serif';
 }
 
-option {
-    color: #E9E9E9
-}
 
 
 .wrapper2 {
@@ -137,4 +139,5 @@ option {
     color: white;
     font-size: 20px;
     padding: 10px;
+    width: 150px;
 }
