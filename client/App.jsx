@@ -209,3 +209,10 @@ export default App;
   //2. conversion box
   //3. choice box, dropdowns to pick, labels
   //4. graph
+
+
+// in case OAuth
+//   Client ID
+//   832758037832-v87s2h5cbuvt557o5tsbkkid1a9pcnud.apps.googleusercontent.com
+//   Client Secret
+//   9A3rS_Ky-MhsCTE2Q0FS8b6K
