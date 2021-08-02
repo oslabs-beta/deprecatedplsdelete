@@ -48,35 +48,38 @@ class App extends Component {
     // res.locals.rate
     this.setState({ curr1: event.target.value });
   }
+
   curr2Change(event) {
     // goes to ChoiceBox
     this.setState({ curr2: event.target.value });
+
   }
+
   valueChange(event) {
     // goes to ChoiceBox
     this.setState({ value: event.target.value });
+    
+    setTimeout (()=> {axios.post('http://localhost:3000/currencyApi', {
+          curr1: this.state.curr1,
+          curr2: this.state.curr2,
+        })
+        .then((response) => {
+          console.log(response.data.info);
+          this.setState({ conversionRate: response.data.info });
+
+        })
+        .catch((error) => {
+          console.log('Value change error!!', error, ':(');
+        })
+      }, 0);
   }
 
   componentDidMount() {}
 
   //to fetch all data?
   componentDidUpdate() {
-    axios
-      .post('/currencyApi', {
-        curr1: this.state.curr1,
-        curr2: this.state.curr2,
-      })
-      .then(
-        (response) => {
-          console.log(response);
-        },
-        (error) => {
-          console.log(error);
-        }
-      )
-      .catch((error) => {
-        console.log(error.toJSON());
-      });
+
+      
   }
 
   render() {
@@ -118,7 +121,7 @@ class Graph extends Component {
           <button>Month</button>
         </div>
         <div className="wrapper2">
-          <ResponsiveContainer width={1000} height={400}>
+          <ResponsiveContainer width="90%" height={400}>
             <AreaChart data={data}>
               <defs>
                 <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
@@ -184,7 +187,7 @@ class ConversionBox extends Component {
             <label className=""></label>
             <div className="Outputer">
               {' '}
-              {this.props.info.value * this.props.info.conversionRate} IN{' '}
+              {this.props.info.value * this.props.info.conversionRate.rate} IN{' '}
               {this.props.info.curr2}
             </div>
           </div>
@@ -196,121 +199,7 @@ class ConversionBox extends Component {
 
 class ChoiceBox extends Component {
   render() {
-    const arr = [
-      'ALL',
-      'AFN',
-      'ARS',
-      'AWG',
-      'AUD',
-      'AZN',
-      'BSD',
-      'BBD',
-      'BDT',
-      'BYR',
-      'BZD',
-      'BMD',
-      'BOB',
-      'BAM',
-      'BWP',
-      'BGN',
-      'BRL',
-      'BND',
-      'KHR',
-      'CAD',
-      'KYD',
-      'CLP',
-      'CNY',
-      'COP',
-      'CRC',
-      'HRK',
-      'CUP',
-      'CZK',
-      'DKK',
-      'DOP',
-      'XCD',
-      'EGP',
-      'SVC',
-      'EEK',
-      'EUR',
-      'FKP',
-      'FJD',
-      'GHC',
-      'GIP',
-      'GTQ',
-      'GGP',
-      'GYD',
-      'HNL',
-      'HKD',
-      'HUF',
-      'ISK',
-      'INR',
-      'IDR',
-      'IRR',
-      'IMP',
-      'ILS',
-      'JMD',
-      'JPY',
-      'JEP',
-      'KZT',
-      'KPW',
-      'KRW',
-      'KGS',
-      'LAK',
-      'LVL',
-      'LBP',
-      'LRD',
-      'LTL',
-      'MKD',
-      'MYR',
-      'MUR',
-      'MXN',
-      'MNT',
-      'MZN',
-      'NAD',
-      'NPR',
-      'ANG',
-      'NZD',
-      'NIO',
-      'NGN',
-      'NOK',
-      'OMR',
-      'PKR',
-      'PAB',
-      'PYG',
-      'PEN',
-      'PHP',
-      'PLN',
-      'QAR',
-      'RON',
-      'RUB',
-      'SHP',
-      'SAR',
-      'RSD',
-      'SCR',
-      'SGD',
-      'SBD',
-      'SOS',
-      'ZAR',
-      'LKR',
-      'SEK',
-      'CHF',
-      'SRD',
-      'SYP',
-      'TWD',
-      'THB',
-      'TTD',
-      'TRL',
-      'TVD',
-      'UAH',
-      'GBP',
-      'USD',
-      'UYU',
-      'UZS',
-      'VEF',
-      'VND',
-      'YER',
-      'ZWD',
-    ];
+    const arr = ['AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BTC', 'BTN', 'BWP', 'BYN', 'BYR', 'BZD', 'CAD', 'CDF', 'CHF', 'CLF', 'CLP', 'CNY', 'COP', 'CRC', 'CUC', 'CUP', 'CVE', 'CZK', 'DJF', 'DKK', 'DOP', 'DZD', 'EGP', 'ERN', 'ETB', 'EUR', 'FJD', 'FKP', 'GBP', 'GEL', 'GGP', 'GHS', 'GIP', 'GMD', 'GNF', 'GTQ', 'GYD', 'HKD', 'HNL', 'HRK', 'HTG', 'HUF', 'IDR', 'ILS', 'IMP', 'INR', 'IQD', 'IRR', 'ISK', 'JEP', 'JMD', 'JOD', 'JPY', 'KES', 'KGS', 'KHR', 'KMF', 'KPW', 'KRW', 'KWD', 'KYD', 'KZT', 'LAK', 'LBP', 'LKR', 'LRD', 'LSL', 'LTL', 'LVL', 'LYD', 'MAD', 'MDL', 'MGA', 'MKD', 'MMK', 'MNT', 'MOP', 'MRO', 'MUR', 'MVR', 'MWK', 'MXN', 'MYR', 'MZN', 'NAD', 'NGN', 'NIO', 'NOK', 'NPR', 'NZD', 'OMR', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF', 'SAR', 'SBD', 'SCR', 'SDG', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SVC', 'SYP', 'SZL', 'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'USD', 'UYU', 'UZS', 'VEF', 'VND', 'VUV', 'WST', 'XAF', 'XAG', 'XAU', 'XCD', 'XDR', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMK', 'ZMW', 'ZWL']
     const options = arr.map((el, i) => <option key={i}> {el} </option>);
     return (
       <>
