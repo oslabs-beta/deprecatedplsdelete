@@ -14,9 +14,6 @@ import axios from 'axios';
 //     |ConversionBox
 //     |ChoiceBox
 
-// Changes Mark made:
-  // renamed Toolbar to Graph
-  // in Graph, removed ticklines/axislines, played with coloring and fading, found ticks on X axis
 // TO DO SUN/MON:
   // build stateholder
   // convert everything to hooks
