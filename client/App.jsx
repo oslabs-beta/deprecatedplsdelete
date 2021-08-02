@@ -169,7 +169,8 @@ class Graph extends Component {
               <XAxis
                 dataKey="date"
                 tickLine={false}
-                tickCount={3}
+                tickMargin={30}
+                angle={90}
                 // tick={(str) => {
                 //   const date = parseISO(str);
                 //   if (date.getDate() % 7 === 0) {
