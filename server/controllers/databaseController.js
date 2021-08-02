@@ -19,7 +19,8 @@ databaseController.createUser = async (req, res, next) => {
 // login user -- findOne
 databaseController.userLogin = async (req, res, next) => {
   try {
-    const loginUser = await User.findOne({username: 'Shawn', password: 'isrocking3'});
+    const { username, password } = req.body
+    const loginUser = await User.findOne({username: username, password: password});
     if (!loginUser) console.log('Wrong password, dummy.');
     else console.log('You did it!');
     return next();

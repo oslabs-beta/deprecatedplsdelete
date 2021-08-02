@@ -157,6 +157,7 @@ class Graph extends Component {
               <XAxis
                 dataKey="date"
                 tickLine={false}
+                tickCount={3}
                 // tick={(str) => {
                 //   const date = parseISO(str);
                 //   if (date.getDate() % 7 === 0) {
