@@ -56,9 +56,10 @@ SHARE THE LOVE
   Now, message the team for everyone to run the same commands. This will ensure the team is working as closely as possible on a matching codebase.
 
   Please message the team for everyone to add, commit, pull, push if you:
-    * install any sort of dependency/devdependency (git install)
-    * change ANYTHING in webpack or package.json
-    * reach any milestone, minor or major, in your code (functionality)
+  
+    - install any sort of dependency/devdependency (git install)
+    - change ANYTHING in webpack or package.json
+    - reach any milestone, minor or major, in your code (functionality)
 
   If you are running npm install/npm i as a way to download all of the npm packages, 
   As the scope of this project is relatively simple, we won't get into stashing or multiple branches for the time being.

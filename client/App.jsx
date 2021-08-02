@@ -168,8 +168,9 @@ class Graph extends Component {
 
               <XAxis
                 dataKey="date"
-                tickLine={false}
-                tickCount={3}
+                tickLine={true}
+                tickMargin={5}
+                angle={90}
                 // tick={(str) => {
                 //   const date = parseISO(str);
                 //   if (date.getDate() % 7 === 0) {
@@ -209,14 +210,14 @@ class ConversionBox extends Component {
           <div className="Inner_wrapper">
             <div className="amountToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your amount: </label>
-              <div className="amountDisplay"> {this.props.info.value}</div>
+              <label className="">Your amount</label>
+              <div className=""> {this.props.info.value}</div>
             </div>
 
             <div className="CurrToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your input currency: </label>
-              <div className="inputDisplay"> {this.props.info.curr1}</div>
+              <label className="">Your input currency</label>
+              <div className=""> {this.props.info.curr1}</div>
             </div>
           </div>
 
