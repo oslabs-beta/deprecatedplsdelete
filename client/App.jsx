@@ -12,7 +12,9 @@ import {
 } from 'recharts'; // exampleLine built out under Tooltip see line136
 import { format, parseISO, subDays } from 'date-fns';
 import axios from 'axios';
-
+import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import Login from './Login.jsx';
+import Signup from './Signup.jsx'
 // design login/signup page hasan/shawn
 // connect to router
 // fix x&y axis
@@ -104,6 +106,15 @@ class App extends Component {
   render() {
     return (
       <>
+        {/* <div className ="header">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" />
+            <Route path="/login" render={()=> <Login />}/>
+            <Route path="/signup" render={() => <Signup/>} />
+          </Switch>
+        </BrowserRouter>
+        </div> */}
         <Navigation />
         <ConversionBox info={this.state} />
         <ChoiceBox
@@ -252,7 +263,7 @@ else {
                 tickCount={4}
                 domain={['auto', 'auto']}
                 // domain = {[dataMin=>(dataMin * .98), dataMax=>(dataMax* 1.02)]}
-                tickFormatter={(number) => `${number.toFixed(2)}`}
+                tickFormatter={(number) => `${number.toFixed(3)}`}
               />
               <Tooltip />
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
@@ -298,7 +309,7 @@ class ConversionBox extends Component {
               {' '}
               {console.log(this.props.info.history)}
               {(this.props.info.value * this.props.info.conversionRate).toFixed(
-                2
+                3
               )}{' '}
               in {this.props.info.curr2}
             </div>
@@ -520,7 +531,7 @@ class ChoiceBox extends Component {
                 required
               />
             </div>
-            <h2>{this.props.info.curr1} HISTORY</h2>
+            <h2>{this.props.info.curr1} TAFFOVERTER HISTORY</h2>
           </div>
         </div>
       </>
@@ -534,28 +545,30 @@ class Navigation extends Component {
       <div className='header'>
         <div className='topButtons'>
           <div className="leftButtons">
-          <button
-            className='signup-btn'
-            onClick={(event) => (window.location.href = '/signup')}
-          >
-            {' '}
-            Signup{' '}
-          </button>
-          <button
-            className='login-btn'
-            onClick={(event) => (window.location.href = '/login')}
-          >
-            {' '}
-            Login{' '}
-          </button>
+            <button
+              className='signup-btn'
+              // onClick={(event) => (window.location.href = '/signup')}
+            >
+              {' '}
+              Signup{' '}
+            </button>
+            <button
+              className='login-btn'
+              // onClick={(event) => (window.location.href = '/login')}
+            >
+              {' '}
+              Login{' '}
+            </button>
           </div>
           <div className="rightButtons">
-          <button>Learn More</button>
-          <button>Contact Us</button>
+            <button>Learn More</button>
+            <button>Contact Us</button>
           </div>
         </div>
-        <h1>Currency Exchange Tracker</h1>
+      <div>
+          <h1>LUCASVERTER</h1>
       </div>
+    </div>
     );
   }
 }

@@ -1,5 +1,4 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
 const cors = require('cors');
@@ -7,37 +6,32 @@ const databaseController = require('./controllers/databaseController');
 
 const PORT = 3000; // may need to change ML
 
+const app = express();
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //bodyParser deprecatd ML
-
 app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 // app.use('/login', express.static(path.join(__dirname, '../client/')))
+// app.use('/login', express.static(path.join(__dirname, '../client/')));
+
 app.use(cors());
 // define route handlers
 app.use('/currencyApi', currencyApi);
 
-app.use(express.static(path.join(__dirname, '../client/')))
+// app.use(express.static(path.join(__dirname, '../client/')))
 
 
-app.get('/login', (req, res) => {
-  res.status(200).send(path.join(__dirname, '../client/Login.jsx'))
-})
+// app.get('/login', (req, res) => {
+//   res.status(200).render(path.join(__dirname, '../client/Login.jsx'))
+// })
 
 
 app.get('/signup', (req, res) => {
-  res.status(200).send(path.join(__dirname, '../client/Signup.jsx'))
+  res.render(path.join(__dirname, '../client/Signup.jsx'))
 })
-
-// app.get('/login', (req, res) => {
-//   res.status(200).sendFile(path.join(__dirname, '../client/Login.jsx'))
-// })
 
 // app.post('/login', databaseController.userLogin, (req,res) => {
 //   res.status(200).redirect('/')
-// })
-
-// app.get('/signup', (req, res) => {
-//   res.status(200).sendFile(path.join(__dirname, '../client/Signup.jsx'))
 // })
 
 // app.post('/signup', databaseController.createUser, (req, res) => {
