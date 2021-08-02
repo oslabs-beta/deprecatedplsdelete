@@ -182,10 +182,10 @@ class Graph extends Component {
               <YAxis
                 datakey="value"
                 tickLine={false}
-                // tickInterval={100}
-                // tickCount={6}
-                domain = {['dataMin', 'dataMax']}
-                tickFormatter={(number) => `$${number.toFixed(2)}`}
+                tickCount={4}
+                domain={['auto', 'auto']}
+                // domain = {[dataMin=>(dataMin * .98), dataMax=>(dataMax* 1.02)]}
+                tickFormatter={(number) => `${number.toFixed(2)}`}
               />
               <Tooltip />
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
