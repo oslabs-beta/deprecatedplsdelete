@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { ResponsiveContainer, Tooltip, AreaChart, Area, CartesianGrid, XAxis, YAxis, Line } from 'recharts';
+import { ResponsiveContainer, Tooltip, AreaChart, Area, CartesianGrid, XAxis, YAxis, Line } from 'recharts'; // exampleLine built out under Tooltip see line136
 import { format, parseISO, subDays } from "date-fns";
 import axios from 'axios';
 
-const dummyData = []
-// Back end is giving all data at once. Unless they can separate out functionality, state cannot be separated between graph and stateholder and must re-render on every single change.
-// Else, we can BLOW UP state to hold ALL database for the user as well as current conversion rates & amounts. This would slow down the app significantly.
+// After discussion & input from Mike, ISSUE IS:
+  // Back end is giving all data at once. Unless they can separate out functionality, state cannot be separated between graph and stateholder and must re-render on every single change.
+  // Else, we can BLOW UP state to hold ALL database for the user as well as current conversion rates & amounts. This would slow down the app significantly.
+
 // | App
 //   |Graph (Graph) (only accesses database?)
 //   |StateHolder
 //     |ConversionBox
 //     |ChoiceBox
+
 // Changes Mark made:
-  // renamed Toolbar to graph
-  // in Graph, ticklines/axislines
-// To do:
+  // renamed Toolbar to Graph
+  // in Graph, removed ticklines/axislines, played with coloring and fading, found ticks on X axis
+// TO DO SUN/MON:
   // build stateholder
   // convert everything to hooks
   // extra features
@@ -122,7 +124,7 @@ render() {
                     //       return format(date, "MMM, d");
                     //   }
                     //   return "";
-                    // }}  
+                    // }}  // TICK WILL NOW WORK but 
                 />
                     <YAxis
                     datakey="value"
@@ -132,7 +134,7 @@ render() {
                     tickFormatter={(number) => `$${number.toFixed(2)}`}  />
               <Tooltip/>
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
-           <CartesianGrid opacity={0.1} vertical={false} />
+           <CartesianGrid opacity={0.1} vertical={false} strokeDasharray="3 3" />
           </AreaChart>
         </ResponsiveContainer>
 
