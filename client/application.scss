@@ -1,5 +1,5 @@
 body {
-  margin-top: 20px;
+  margin-top: 10px;
   background: white;
   color: black;
   font-family: Noto Sans, 'sans-serif';
@@ -41,6 +41,7 @@ button:hover {
     justify-content: center;
     font-size: 40px;
     margin-bottom: 40px;
+    margin-top: 15px;
 }
 
 .wrapper__ON_ChoiceBox {
@@ -160,8 +161,7 @@ select:focus, input:focus {
   text-align: center;
   width: 300px;
   height: 60px;
-  background:#FAFAFA;
-  color: gray ;
+  background-color: rgba(250, 250, 250, 0.2);
 }
 
 .amountDisplay, .inputDisplay {
