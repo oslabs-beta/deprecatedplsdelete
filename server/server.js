@@ -17,7 +17,7 @@ app.use('/currencyApi', currencyApi);
 
 
 app.get('/login', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/Login.jsx'))
+  res.status(200).send(path.join(__dirname, '../client/Login.jsx'))
 })
 
 app.post('/login', databaseController.userLogin, (req,res) => {
@@ -25,7 +25,7 @@ app.post('/login', databaseController.userLogin, (req,res) => {
 })
 
 app.get('/signup', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/Signup.jsx'))
+  res.status(200).send(path.join(__dirname, '../client/Signup.jsx'))
 })
 
 app.post('/signup', databaseController.createUser, (req, res) => {
