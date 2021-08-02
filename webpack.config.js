@@ -12,10 +12,21 @@ module.exports = {
   },
   mode: process.env.NODE_ENV,
   devServer: {
+    historyApiFallback: true,
+    inline: true,
     compress: true,
     publicPath: '/dist',
     proxy: {
-      '/': 'http://localhost:3000',
+      '/': 'http://localhost:3000'
+      // '/api/**': {
+      //   target: 'http://localhost:3000',
+      //   secure: false,
+      //   changeOrigin: true, 
+      //   onProxyReq: (proxyReq) => {
+      //   proxyReq.setHeader('Cookie', cookie);
+      //   },
+      // }
+
     },
   },
   plugins: [new HtmlWebpackPlugin(), new MiniCssExtractPlugin()],
