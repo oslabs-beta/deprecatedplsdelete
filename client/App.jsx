@@ -70,6 +70,7 @@ class App extends Component {
      
     return (
       <>
+        {/* <StateHolder/> */}
         <ConversionBox info= {this.state} />
         <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change} valueChange={this.valueChange} />
         <Graph/>
@@ -79,10 +80,18 @@ class App extends Component {
 }
 
 // state is held 
-class StateHolder extends Component {
-  // hold ConversionBox and ChoiceBox here
-  // state will hold
-}
+// class StateHolder extends Component {
+//   // hold ConversionBox and ChoiceBox here
+//   // state will hold
+//   render() {
+//     return (
+//       <>
+//         <ConversionBox info= {this.state} />
+//         <ChoiceBox info={this.state} curr1Change={this.curr1Change} curr2Change={this.curr2Change} valueChange={this.valueChange} />
+//       </>
+//     )
+//   }
+// }
 
 class Graph extends Component {
 render() {
