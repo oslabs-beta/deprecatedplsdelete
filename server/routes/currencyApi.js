@@ -10,10 +10,10 @@ const databaseController = require('../controllers/databaseController');
 router.post(
   '/',
   currencyController.getRate,
-  // currencyController.getHistory,
+ currencyController.getHistory,
 
   (req, res) => {
-    res.status(200).send(res.locals);
+    res.status(200).send(res.locals.rate);
   }
 );
 

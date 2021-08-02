@@ -48,7 +48,7 @@ currencyController.getHistory = async (req, res, next) => {
     );
     const json = await result.json();
     // console.log('HISTORY RESULT', json);
-    res.locals.history = json.rates;
+    res.locals.rate.history = json.rates;
     return next();
   } catch (err) {
     return next(err);

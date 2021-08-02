@@ -35,7 +35,8 @@ class App extends Component {
       curr2: '', //EUR
       value: '', //your amount
       conversionRate: 2,
-      converted: '', //your amount * conversionrate
+      converted: '', 
+      history: '',//your amount * conversionrate
     };
     this.curr1Change = this.curr1Change.bind(this);
     this.curr2Change = this.curr2Change.bind(this);
@@ -81,8 +82,9 @@ class App extends Component {
     })
     .then((response) => {
       console.log(response);
-      this.setState({ conversionRate: response.data.rate.info });
-
+      this.setState({ conversionRate: response.data.info.rate });
+      this.setState({ history: response.data.history });
+      
     })
     .catch((error) => {
       console.log('Value change error!!', error, ':(');
@@ -108,7 +110,7 @@ class App extends Component {
           curr2Change={this.curr2Change}
           valueChange={this.valueChange}
         />
-        <Graph />
+        <Graph info={this.state} />
       </>
     );
   }
@@ -123,12 +125,16 @@ class StateHolder extends Component {
 class Graph extends Component {
   render() {
     // testing
+    this.props.info.history;
+    this.props.info.curr2;
     const data = [];
-    for (let num = 30; num >= 0; num--) {
+    
+    for (let el in this.props.info.history) {
       data.push({
-        date: subDays(new Date(), num).toISOString().substr(0, 10),
-        value: 1 + Math.random(),
+        date: el,
+        value: this.props.info.history[el][this.props.info.curr2]
       });
+      console.log(data);
     }
     return (
       <div className="build">
@@ -202,9 +208,9 @@ class ConversionBox extends Component {
           <div className="convertedAmount">
             <label className=""></label>
             <div className="Outputer">
-              {' '}
-              {(this.props.info.value * this.props.info.conversionRate.rate).toFixed(2)} IN{' '}
-              {this.props.info.curr2}
+              {' '}{console.log(this.props.info.history)}
+              {(this.props.info.value * this.props.info.conversionRate).toFixed(2)} IN{' '}
+            {this.props.info.curr2}
             </div>
           </div>
         </div>
