@@ -6,7 +6,7 @@ body {
 }
 
 .wrapper__ON_ChoiceBox {
-  height: 450px;
+  height: 250px;
   width: 450px;
   margin: auto;
 }
@@ -16,13 +16,17 @@ body {
   width: 450px;
   display: flex;
   font-size: 24px;
+  text-align: center;
 }
 
 .wrapperChoicebox select {
     border: 2px solid #00d8ff;
     border-radius: 20px;
+    font-size: 25px;
     margin: 5px;
-    width: 90px;
+    width: 180px;
+    height: 45px;
+    
 }
 
 .c1test {
@@ -43,9 +47,20 @@ body {
   text-align: justify;
 }
 
+.currency1, .currency2 {
+    align-items: flex-start;
+    margin: 0 20px;
+    font-family: Noto Sans, 'sans-serif';
+}
+
+option {
+    color: #E9E9E9
+}
+
+
 .wrapper2 {
   width: 700px;
-  height: 1000px;
+  height: 460px;
   margin: auto;
   font-size: 14px;
   text-align: justify;
@@ -98,17 +113,24 @@ body {
 .Outputer {
     display: flex;
     justify-content: center;
+    font-size: 2.5rem;
 }
 .graph {
   margin: auto;
 }
 
+// .build {
+//     height: 500px;
+//     border: 2px solid black;
+// }
+
 .butt {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .butt button {
+    margin: 0 30px 50px 0px;
     border: 3px solid #00d8ff;
     border-radius: 15px;
     background-color: #00d8ff;

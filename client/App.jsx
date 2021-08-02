@@ -171,10 +171,7 @@ class Graph extends Component {
  
     return (
       <div className="build">
-        <div className="butt">
-          <button>Week</button>
-          <button>Month</button>
-        </div>
+      
         <div className="wrapper2">
           <ResponsiveContainer width="90%" height={400}>
             <AreaChart data={data}>
@@ -219,6 +216,10 @@ class Graph extends Component {
             </AreaChart>
           </ResponsiveContainer>
         </div>
+        <div className="butt">
+          <button>Week</button>
+          <button>Month</button>
+        </div>
       </div>
     );
   }
@@ -233,12 +234,12 @@ class ConversionBox extends Component {
             <div className="amountToConvert">
               {/* amt & curr1 to convert */}
               <label className="">Your amount</label>
-              <div className=""> {this.props.info.value}</div>
+              <div className="amountDisplay"> {this.props.info.value}</div>
             </div>
 
             <div className="CurrToConvert">
               {/* amt & curr1 to convert */}
-              <label className="">Your input currency</label>
+              <label className="inputDisplay">Your input currency</label>
               <div className=""> {this.props.info.curr1}</div>
             </div>
           </div>
@@ -266,15 +267,18 @@ class ChoiceBox extends Component {
         <div className="wrapper__ON_ChoiceBox_style">
           <div className="wrapper__ON_ChoiceBox">
             <div className="wrapperChoicebox">
-              <label className="c1test">Currency 1</label>
-              <select
-                value={this.props.info.curr1}
-                onChange={this.props.curr1Change}
-                required
-              >
-                <option>Choose...</option>
-                {options}
-              </select>
+              <div className="currency1">
+                <label className="c1test">Currency 1</label>
+                <select
+                  value={this.props.info.curr1}
+                  onChange={this.props.curr1Change}
+                  required
+                >
+                  <option>Choose...</option>
+                  {options}
+                </select>
+              </div>
+              <div className="currency2">
               <label className="c2test">Currency 2</label>
               <select
                 value={this.props.info.curr2}
@@ -284,6 +288,8 @@ class ChoiceBox extends Component {
                 <option>Choose...</option>
                 {options}
               </select>
+              </div>
+              
             </div>
             <div className="wrapperInput">
               <input
