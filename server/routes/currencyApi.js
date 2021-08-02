@@ -12,15 +12,10 @@ router.post('/', currencyController.getRate, currencyController.getHistory, (req
   }
 );
 
-router.get('/login', databaseController.userLogin, (req, res) => {
-  res.status(200).redirect('/')
-})
 
 
 /*
-router.get('/signup', databaseController.createUser, (req, res) => {
-  res.status(200).redirect('/')
-})
+
 */
 
 //Hello all//

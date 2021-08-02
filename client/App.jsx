@@ -114,6 +114,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <Navigation />
         <ConversionBox info={this.state} />
         <ChoiceBox
           info={this.state}
@@ -277,6 +278,17 @@ class ChoiceBox extends Component {
         </div>
       </>
     );
+  }
+}
+
+class Navigation extends Component {
+  render () {
+    return (
+    <div>
+      <button className='signup-btn' onClick={event => window.location.href='/signup'}> Signup </button>
+      <button className='login-btn' onClick={event => window.location.href='/login'}> Login </button>
+    </div>
+    )
   }
 }
 

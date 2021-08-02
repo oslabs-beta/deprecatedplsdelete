@@ -2,7 +2,8 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
-let cors = require('cors');
+const cors = require('cors');
+const databaseController = require('./controllers/databaseController');
 
 const PORT = 3000; // may need to change ML
 
@@ -13,6 +14,23 @@ app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 app.use(cors());
 // define route handlers
 app.use('/currencyApi', currencyApi);
+
+
+app.get('/login', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../client/Login.jsx'))
+})
+
+app.post('/login', databaseController.userLogin, (req,res) => {
+  res.status(200).redirect('/')
+})
+
+app.get('/signup', (req, res) => {
+  res.status(200).sendFile(path.join(__dirname, '../client/Signup.jsx'))
+})
+
+app.post('/signup', databaseController.createUser, (req, res) => {
+  res.status(200).redirect('/')
+})
 
 /**
  * 404 handler
