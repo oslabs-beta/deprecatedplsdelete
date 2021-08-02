@@ -13,6 +13,17 @@ import {
 import { format, parseISO, subDays } from 'date-fns';
 import axios from 'axios';
 
+// design login/signup page hasan/shawn
+  // connect to router 
+// fix x&y axis 
+// style the page lucas
+
+
+
+
+
+
+
 // After discussion & input from Mike, ISSUE IS:
 // Back end is giving all data at once. Unless they can separate out functionality, state cannot be separated between graph and stateholder and must re-render on every single change.
 // Else, we can BLOW UP state to hold ALL database for the user as well as current conversion rates & amounts. This would slow down the app significantly.
@@ -128,14 +139,15 @@ class Graph extends Component {
     this.props.info.history;
     this.props.info.curr2;
     const data = [];
-    
+   
+
     for (let el in this.props.info.history) {
       data.push({
         date: el,
         value: this.props.info.history[el][this.props.info.curr2]
       });
-      console.log(data);
     }
+    console.log(data);
     return (
       <div className="build">
         <div className="butt">
@@ -157,6 +169,7 @@ class Graph extends Component {
               <XAxis
                 dataKey="date"
                 tickLine={false}
+                tickCount={3}
                 // tick={(str) => {
                 //   const date = parseISO(str);
                 //   if (date.getDate() % 7 === 0) {
@@ -168,7 +181,9 @@ class Graph extends Component {
               <YAxis
                 datakey="value"
                 tickLine={false}
-                tickCount={6}
+                // tickInterval={100}
+                // tickCount={6}
+                domain = {['dataMin', 'dataMax']}
                 tickFormatter={(number) => `$${number.toFixed(2)}`}
               />
               <Tooltip />
