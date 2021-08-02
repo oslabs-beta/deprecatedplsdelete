@@ -10,42 +10,44 @@ mongoose.connect(MONGO_URI, {
   dbName: 'exchangeDatabase', //fill in with name of database
 });
 
-const historySchema = new Schema({
-  date: String,
-  rate: Number,
-});
+// const historySchema = new Schema({
+//   date: String,
+//   rate: Number,
+// });
 
-const currencySchema = new Schema({
-  name: String,
-  history: [historySchema],
-});
+// const currencySchema = new Schema({
+//   name: String,
+//   history: [historySchema],
+// });
+
+// const userSchema = new Schema({
+//   username: { type: String, required: true, unique: true },
+//   password: { type: String, required: true },
+//   currency: { type: currencySchema },
+// });
+
 
 const userSchema = new Schema({
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  currency: { type: currencySchema },
-});
-
-
-const test = new Schema({
   username: { type: String, required: true, unique: true},
   password: { type: String, required: true},
-  currency: {
-      name: { type: String },
       history: [{
+        currency: String,
         date: String,
         rate: Number,
       }]
-  }
+  
 })
+
+
+
+
 
 // first param is collection name in DB
 const User = mongoose.model('User', userSchema);
-const Currency = mongoose.model('Currency', currencySchema);
-const History = mongoose.model('History', historySchema);
+// const Currency = mongoose.model('Currency', currencySchema);
+// const History = mongoose.model('History', historySchema);
 
-module.exports = {
-  User,
-  Currency,
-  History,
-};
+module.exports = User;
+  // Currency,
+  // History,
+
