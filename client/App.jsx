@@ -531,7 +531,7 @@ class ChoiceBox extends Component {
                 required
               />
             </div>
-            <h2>{this.props.info.curr1} HISTORY</h2>
+            <h2>{this.props.info.curr1} TAFFOVERTER HISTORY</h2>
           </div>
         </div>
       </>
@@ -566,7 +566,7 @@ class Navigation extends Component {
           </div>
         </div>
       <div>
-          <h1>Currency Exchange Tracker</h1>
+          <h1>LUCASVERTER</h1>
       </div>
     </div>
     );
