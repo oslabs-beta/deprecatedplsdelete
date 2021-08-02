@@ -114,6 +114,7 @@ class App extends Component {
   render() {
     return (
       <>
+        <Navigation />
         <ConversionBox info={this.state} />
         <ChoiceBox
           info={this.state}
@@ -180,10 +181,10 @@ class Graph extends Component {
               <YAxis
                 datakey="value"
                 tickLine={false}
-                // tickInterval={100}
-                // tickCount={6}
-                domain = {['dataMin', 'dataMax']}
-                tickFormatter={(number) => `$${number.toFixed(2)}`}
+                tickCount={4}
+                domain={['auto', 'auto']}
+                // domain = {[dataMin=>(dataMin * .98), dataMax=>(dataMax* 1.02)]}
+                tickFormatter={(number) => `${number.toFixed(2)}`}
               />
               <Tooltip />
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
@@ -284,6 +285,17 @@ class ChoiceBox extends Component {
         </div>
       </>
     );
+  }
+}
+
+class Navigation extends Component {
+  render () {
+    return (
+    <div>
+      <button className='signup-btn' onClick={event => window.location.href='/signup'}> Signup </button>
+      <button className='login-btn' onClick={event => window.location.href='/login'}> Login </button>
+    </div>
+    )
   }
 }
 
