@@ -57,21 +57,37 @@ class App extends Component {
 
   valueChange(event) {
     // goes to ChoiceBox
-    this.setState({ value: event.target.value });
+    // this.setState({ value: event.target.value });
     
-    setTimeout (()=> {axios.post('http://localhost:3000/currencyApi', {
-          curr1: this.state.curr1,
-          curr2: this.state.curr2,
-        })
-        .then((response) => {
-          console.log(response.data.info);
-          this.setState({ conversionRate: response.data.info });
+    // setTimeout (()=> {axios.post('http://localhost:3000/currencyApi', {
+    //       curr1: this.state.curr1,
+    //       curr2: this.state.curr2,
+    //     })
+    //     .then((response) => {
+    //       console.log(response.data.info);
+    //       this.setState({ conversionRate: response.data.info });
 
-        })
-        .catch((error) => {
-          console.log('Value change error!!', error, ':(');
-        })
-      }, 0);
+    //     })
+    //     .catch((error) => {
+    //       console.log('Value change error!!', error, ':(');
+    //     })
+    //   }, 0);
+
+    const x = Promise.resolve(this.setState({ value: event.target.value }));
+    x
+    .then((()=> {axios.post('http://localhost:3000/currencyApi', {
+      curr1: this.state.curr1,
+      curr2: this.state.curr2,
+    })
+    .then((response) => {
+      console.log(response);
+      this.setState({ conversionRate: response.data.rate.info });
+
+    })
+    .catch((error) => {
+      console.log('Value change error!!', error, ':(');
+    })
+  }));
   }
 
   componentDidMount() {}
@@ -187,7 +203,7 @@ class ConversionBox extends Component {
             <label className=""></label>
             <div className="Outputer">
               {' '}
-              {this.props.info.value * this.props.info.conversionRate.rate} IN{' '}
+              {(this.props.info.value * this.props.info.conversionRate.rate).toFixed(2)} IN{' '}
               {this.props.info.curr2}
             </div>
           </div>

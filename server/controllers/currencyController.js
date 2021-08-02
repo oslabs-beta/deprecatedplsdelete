@@ -42,12 +42,13 @@ currencyController.getHistory = async (req, res, next) => {
     .slice(0, 10);
 
   try {
+    const { curr1, curr2 } = req.body;
     const result = await fetch(
-      `https://api.exchangeratesapi.io/v1/timeseries?access_key=${currencyApiKey}&start_date=${aMonthAgo}&end_date=${today}&base=USD&symbols=EUR`
+      `https://api.exchangeratesapi.io/v1/timeseries?access_key=${currencyApiKey}&start_date=${aMonthAgo}&end_date=${today}&base=${curr1}&symbols=${curr2}`
     );
     const json = await result.json();
-    console.log('HISTORY RESULT', json);
-    res.locals.history = json;
+    // console.log('HISTORY RESULT', json);
+    res.locals.history = json.rates;
     return next();
   } catch (err) {
     return next(err);
