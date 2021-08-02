@@ -20,23 +20,21 @@ app.use('/currencyApi', currencyApi);
 
 // app.use(express.static(path.join(__dirname, '../client/')))
 
-
-// app.get('/login', (req, res) => {
-//   res.status(200).render(path.join(__dirname, '../client/Login.jsx'))
-// })
-
+app.get('/login', (req, res) => {
+  res.status(200).render(path.join(__dirname, '../client/Login.jsx'));
+});
 
 app.get('/signup', (req, res) => {
-  res.render(path.join(__dirname, '../client/Signup.jsx'))
-})
+  res.render('../client/Signup.jsx');
+});
 
-// app.post('/login', databaseController.userLogin, (req,res) => {
-//   res.status(200).redirect('/')
-// })
+app.post('/login', databaseController.userLogin, (req, res) => {
+  res.status(200).redirect('/');
+});
 
-// app.post('/signup', databaseController.createUser, (req, res) => {
-//   res.status(200).redirect('/')
-// })
+app.post('/signup', databaseController.createUser, (req, res) => {
+  res.status(200).redirect('/');
+});
 
 /**
  * 404 handler
