@@ -1,28 +1,76 @@
 body {
-  margin-top: 100px;
-  background-color: white;
+  margin-top: 20px;
+  background: white;
   color: black;
   font-family: Noto Sans, 'sans-serif';
 }
 
+button:hover {
+    cursor: pointer;
+}
+
+.topButtons {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.topButtons button {
+    margin: 0 30px 10px 0px;
+    border: 3px solid #00d8ff;
+    border-radius: 15px;
+    background-color: #00d8ff;
+    color: white;
+    font-size: 20px;
+    padding: 10px;
+    width: 150px;
+}
+
+.leftButtons {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.rightButtons { 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.header h1 {
+    display: flex;
+    justify-content: center;
+    font-size: 40px;
+    margin-bottom: 40px;
+}
+
 .wrapper__ON_ChoiceBox {
-  height: 450px;
+  height: 250px;
   width: 450px;
   margin: auto;
 }
 
 .wrapperChoicebox {
-  margin-top: 20%;
+  margin-top: 30px;
   width: 450px;
   display: flex;
   font-size: 24px;
+  text-align: center;
 }
 
 .wrapperChoicebox select {
     border: 2px solid #00d8ff;
     border-radius: 20px;
+    font-size: 20px;
     margin: 5px;
-    width: 90px;
+    width: 180px;
+    height: 45px;
+    text-align-last: center;
+    background:rgba(250, 250, 250, 0.8);
+    color: rgba(128, 128, 128, 1);
+
+}
+
+.wrapperChoiceBox option {
+    font-size: 40px;
 }
 
 .c1test {
@@ -43,9 +91,17 @@ body {
   text-align: justify;
 }
 
+.currency1, .currency2 {
+    align-items: flex-start;
+    margin: 0 20px;
+    font-family: Noto Sans, 'sans-serif';
+}
+
+
+
 .wrapper2 {
   width: 700px;
-  height: 1000px;
+  height: 41    0px;
   margin: auto;
   font-size: 14px;
   text-align: justify;
@@ -61,7 +117,16 @@ body {
 
 
 .wrapperInput {
-  margin: auto;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.wrapperInput input {
+    display: flex;
+    justify-content: center;
+    text-align: center;
 }
 
 .CurrToConvert {
@@ -78,14 +143,14 @@ body {
 }
 
 .inputAmount {
-  margin-top: 15%;
-  margin-left: 15%;
   font-size: 25px;
   border: 3px solid #00d8ff;
-  border-radius: 15px;
+  border-radius: 10px;
   text-align: center;
   width: 300px;
   height: 60px;
+  background:#FAFAFA;
+  color: gray ;
 }
 
 .amountDisplay, .inputDisplay {
@@ -98,21 +163,29 @@ body {
 .Outputer {
     display: flex;
     justify-content: center;
+    font-size: 2.5rem;
 }
 .graph {
   margin: auto;
 }
 
+// .build {
+//     height: 500px;
+//     border: 2px solid black;
+// }
+
 .butt {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .butt button {
+    margin: 0 30px 50px 0px;
     border: 3px solid #00d8ff;
     border-radius: 15px;
     background-color: #00d8ff;
     color: white;
     font-size: 20px;
     padding: 10px;
+    width: 150px;
 }
