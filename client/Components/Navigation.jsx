@@ -11,14 +11,14 @@ class Navigation extends Component {
           <div className="leftButtons">
             <button
               className="signup-btn"
-              onClick={(event) => (window.location.href = '/signup')}
+              // onClick={(event) => (window.location.href = '/signup')}
             >
               {' '}
               Signup{' '}
             </button>
             <button
               className="login-btn"
-              onClick={(event) => (window.location.href = '/login')}
+              // onClick={(event) => (window.location.href = '/login')}
             >
               {' '}
               Login{' '}
@@ -30,7 +30,7 @@ class Navigation extends Component {
           </div>
         </div>
         <div>
-          <h1>Currency Exchange Tracker</h1>
+          <h1>LUCASVERTER</h1>
         </div>
       </div>
     );
