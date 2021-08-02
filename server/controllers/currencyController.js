@@ -31,10 +31,6 @@ currencyController.getRate = async (req, res, next) => {
 };
 
 currencyController.getHistory = async (req, res, next) => {
-  // console.log('Successfully entered getHistory');
-  // const today = new Date().toISOString().slice(0, 10);
-  // console.log('DATE IS', today);
-
   const now = new Date();
   const today = now.toISOString().slice(0, 10);
   const aMonthAgo = new Date(new Date().setDate(now.getDate() - 30))

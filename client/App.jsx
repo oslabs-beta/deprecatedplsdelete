@@ -23,10 +23,6 @@ import ConversionBox from './Components/ConversionBox.jsx';
 //     |ConversionBox
 //     |ChoiceBox
 
-// TO DO SUN/MON:
-// build stateholder
-// convert everything to hooks
-// extra features
 class App extends Component {
   constructor(props) {
     super(props);
@@ -34,7 +30,7 @@ class App extends Component {
       curr1: '', //USD
       curr2: '', //EUR
       value: '', //your amount
-      conversionRate: 2,
+      conversionRate: 2, //test rate, will be overwritten by 
       converted: '',
       history: '', //your amount * conversionrate
     };
@@ -56,23 +52,7 @@ class App extends Component {
   }
 
   valueChange(event) {
-    // goes to ChoiceBox
-    // this.setState({ value: event.target.value });
-
-    // setTimeout (()=> {axios.post('http://localhost:3000/currencyApi', {
-    //       curr1: this.state.curr1,
-    //       curr2: this.state.curr2,
-    //     })
-    //     .then((response) => {
-    //       console.log(response.data.info);
-    //       this.setState({ conversionRate: response.data.info });
-
-    //     })
-    //     .catch((error) => {
-    //       console.log('Value change error!!', error, ':(');
-    //     })
-    //   }, 0);
-
+    
     const x = Promise.resolve(this.setState({ value: event.target.value }));
     x.then(() => {
       axios
@@ -81,7 +61,6 @@ class App extends Component {
           curr2: this.state.curr2,
         })
         .then((response) => {
-          console.log(response);
           this.setState({ conversionRate: response.data.info.rate });
           this.setState({ history: response.data.history });
         })
@@ -90,11 +69,6 @@ class App extends Component {
         });
     });
   }
-
-  componentDidMount() {}
-
-  //to fetch all data?
-  componentDidUpdate() {}
 
   render() {
     return (
@@ -122,21 +96,4 @@ class App extends Component {
   }
 }
 
-// state is held
-class StateHolder extends Component {
-  // hold ConversionBox and ChoiceBox here
-  // state will hold
-}
-
 export default App;
-// COMPONENT LIST
-//1. head Graph with logo, title, and login
-//2. conversion box
-//3. choice box, dropdowns to pick, labels
-//4. graph
-
-// in case OAuth
-//   Client ID
-//   832758037832-v87s2h5cbuvt557o5tsbkkid1a9pcnud.apps.googleusercontent.com
-//   Client Secret
-//   9A3rS_Ky-MhsCTE2Q0FS8b6K

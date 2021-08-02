@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 class ChoiceBox extends Component {
   render() {
-    const arr = [
+    const arr = [ //sorry blame Hasan's linter
       'AED',
       'AFN',
       'ALL',
