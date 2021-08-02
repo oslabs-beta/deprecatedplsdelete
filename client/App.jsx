@@ -264,7 +264,7 @@ class ChoiceBox extends Component {
             </div>
             <div className="wrapperInput">
               <input
-                type="text"
+                type="number"
                 value={this.props.info.value}
                 onChange={this.props.valueChange}
                 className="inputAmount"

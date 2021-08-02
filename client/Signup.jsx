@@ -16,7 +16,7 @@ class Signup extends Component {
           <label> User Name: </label>
           <input type="text" className="username" onChange={(e) => this.setState({...this.state, username: e.target.value})}/>
           <label >Password</label>
-          <input type="text" className="password" onChange={(e) => this.setState({...this.state, password: e.target.value})}/>
+          <input type="password" className="password" onChange={(e) => this.setState({...this.state, password: e.target.value})}/>
           <input type="submit" className="Signup-btn" text="Signup" />
         </form>
       </div>
