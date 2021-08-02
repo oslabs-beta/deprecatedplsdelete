@@ -12,12 +12,4 @@ router.post('/', currencyController.getRate, currencyController.getHistory, (req
   }
 );
 
-
-
-/*
-
-*/
-
-//Hello all//
-
 module.exports = router;
