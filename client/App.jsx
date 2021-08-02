@@ -155,8 +155,8 @@ class Graph extends Component {
     let week = [];
     for (let el in this.props.info.history) {
       data.push({
-        date: el,
-        value: this.props.info.history[el][this.props.info.curr2],
+        date: el.slice(5),
+        value: (this.props.info.history[el][this.props.info.curr2])*this.props.info.value,
       });
     }
     week = data.slice(data.length-7);
@@ -183,13 +183,15 @@ class Graph extends Component {
                 fill='url(#color)'
               />
 
-              <XAxis
+<XAxis
                 dataKey='date'
                 tickLine={false}
-                tickMargin={35}
+                tickMargin={20}
+                
                 angle={90}
-                height={75}
+                height={50}
               />
+
               <YAxis
                 datakey='value'
                 tickLine={false}
@@ -198,6 +200,7 @@ class Graph extends Component {
                 // domain = {[dataMin=>(dataMin * .98), dataMax=>(dataMax* 1.02)]}
                 tickFormatter={(number) => `${number.toFixed(2)}`}
               />
+
               <Tooltip />
               {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
               <CartesianGrid
@@ -238,9 +241,10 @@ else {
               <XAxis
                 dataKey='date'
                 tickLine={false}
-                tickMargin={35}
+                tickMargin={20}
+                
                 angle={90}
-                height={75}
+                height={50}
               />
               <YAxis
                 datakey='value'
