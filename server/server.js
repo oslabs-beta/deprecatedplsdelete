@@ -1,11 +1,12 @@
 const express = require('express');
-const app = express();
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
 const cors = require('cors');
 const databaseController = require('./controllers/databaseController');
 
 const PORT = 3000; // may need to change ML
+
+const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //bodyParser deprecatd ML
@@ -26,9 +27,8 @@ app.use('/currencyApi', currencyApi);
 
 
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/Signup.jsx'))
+  res.render(path.join(__dirname, '../client/Signup.jsx'))
 })
-
 
 // app.post('/login', databaseController.userLogin, (req,res) => {
 //   res.status(200).redirect('/')
