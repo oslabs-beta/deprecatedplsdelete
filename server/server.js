@@ -20,10 +20,13 @@ app.use(express.static(path.join(__dirname, '../client/')))
 
 
 app.get('/login', (req, res) => {
-  res.status(200).sendFile(path.join(__dirname, '../client/', 'Login.jsx'))
+  res.status(200).send(path.join(__dirname, '../client/Login.jsx'))
 })
 
 
+app.get('/signup', (req, res) => {
+  res.status(200).send(path.join(__dirname, '../client/Signup.jsx'))
+})
 
 // app.get('/login', (req, res) => {
 //   res.status(200).sendFile(path.join(__dirname, '../client/Login.jsx'))
