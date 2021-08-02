@@ -44,9 +44,15 @@ button:hover {
 }
 
 .wrapper__ON_ChoiceBox {
-  height: 250px;
+  height: 240px;
   width: 450px;
   margin: auto;
+}
+
+.wrapper__ON_ChoiceBox h2 {
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
 }
 
 .wrapperChoicebox {
@@ -68,6 +74,10 @@ button:hover {
     background:rgba(250, 250, 250, 0.2);
     color: rgba(128, 128, 128, 1);
 
+}
+
+select:focus, input:focus {
+    outline: none;
 }
 
 .wrapperChoiceBox option {
@@ -157,8 +167,6 @@ button:hover {
 .amountDisplay, .inputDisplay {
     display: flex;
     justify-content: center;
-    
-
 }
 
 .Outputer {
