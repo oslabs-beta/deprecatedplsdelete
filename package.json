@@ -1,10 +1,10 @@
 {
-  "name": "currency converter",
+  "name": "currencyconverter",
   "version": "1.0.0",
   "description": "",
   "main": "./client/index.js",
   "scripts": {
-    "start": "NODE_ENV=production node ./server/server.js",
+    "start": "NODE_ENV=production nodemon ./server/server.js",
     "build": "NODE_ENV=production webpack",
     "dev": "NODE_ENV=development nodemon ./server/server.js & NODE_ENV=development webpack serve --hot --open"
   },
@@ -17,14 +17,18 @@
   "author": "Shawn Convery, Oleksii Hordiienko, Mark Liu, Hasan Ozutemiz, Lucas Taffo",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.21.1",
     "browserify": "^17.0.0",
+    "cors": "^2.8.5",
     "css-loader": "^6.2.0",
+    "date-fns": "^2.23.0",
     "express": "^4.17.1",
     "mongoose": "^5.13.4",
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "recharts": "2.0.10"
+    "react-router-dom": "^5.2.0",
+    "recharts": "^2.0.10"
   },
   "devDependencies": {
     "@babel/core": "^7.14.8",
@@ -36,6 +40,7 @@
     "html-webpack-plugin": "^5.3.2",
     "isomorphic-fetch": "^3.0.0",
     "mini-css-extract-plugin": "^2.1.0",
+    "node-fetch": "^2.6.1",
     "nodemon": "^2.0.7",
     "sass": "^1.36.0",
     "sass-loader": "^12.1.0",
