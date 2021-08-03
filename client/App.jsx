@@ -23,6 +23,19 @@ import ConversionBox from './Components/ConversionBox.jsx';
 //     |ConversionBox
 //     |ChoiceBox
 
+// hello fellow 27 iterators! I did the frontend more so it might be a little more commented. Feel free to message if any questions!
+// basically what we didn't get to was:
+  // the login and signup pages literally don't render. threw in oleksii.js at the last min, still didn't render. not sure if react router is necessary. issue is same as before all that was added
+  // oauth, user accounts
+  // database management: tracking each person's fav currencies and those over time. holding those in the database. please consider if the conversion to SQL might contribute very handily to these relations
+  // oleksii & i tried for an evening converting to hooks, but scope of data was so small for today that we decided against it. if you expand, please consider!
+  // compare against other investment trends ie stocks/crypto for starters
+  // nesting the scss
+  // naming divs usefully...
+// other notes:
+  // put the connection to DB within the models. nesting not ideal. recommend thinknig about RDBMS
+
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +43,7 @@ class App extends Component {
       curr1: '', //USD
       curr2: '', //EUR
       value: '', //your amount
-      conversionRate: 2, //test rate, will be overwritten by 
+      conversionRate: 2, //test rate, will be overwritten by state change
       converted: '',
       history: '', //your amount * conversionrate
     };

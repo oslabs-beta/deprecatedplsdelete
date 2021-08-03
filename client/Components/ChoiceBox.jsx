@@ -3,7 +3,7 @@ import { render } from 'react-dom';
 
 class ChoiceBox extends Component {
   render() {
-    const arr = [ //sorry blame Hasan's linter
+    const arr = [ //sorry blame Hasan's linter, can fix by requesting API and grabbing Object.keys. https://exchangeratesapi.io/documentation/ click Supported Symbols Endpoint on left
       'AED',
       'AFN',
       'ALL',
@@ -173,7 +173,7 @@ class ChoiceBox extends Component {
       'ZMW',
       'ZWL',
     ];
-    const options = arr.map((el, i) => <option key={i}> {el} </option>);
+    const options = arr.map((el, i) => <option key={i}> {el} </option>); // data to fill dropdown menu with symbols
     return (
       <>
         <div className="wrapper__ON_ChoiceBox_style">

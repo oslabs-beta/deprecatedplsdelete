@@ -8,7 +8,7 @@ import {
   XAxis,
   YAxis,
   Line,
-} from 'recharts'; // exampleLine built out under Tooltip see line136
+} from 'recharts'; // exampleLine built out under Tooltip see line136 // amazing documentation https://recharts.org/en-US/guide/getting-started
 
 class Graph extends Component {
   constructor(props) {
@@ -17,41 +17,33 @@ class Graph extends Component {
     this.months = this.months.bind(this);
 
     this.state = {
-      flag: false,
+      toWeekView: false,
     };
   }
 
-  weeks(event) {
-    console.log('ASDASD');
-    this.setState({ flag: true });
+  weeks(event) {      //
+    this.setState({ toWeekView: true });
   }
 
   months(event) {
-    this.setState({ flag: false });
+    this.setState({ toWeekView: false });
   }
 
   render() {
-    // testing
-    // this.props.info.history;
-    // this.props.info.curr2;
-    // console.log(this.state.month);
-
-    // console.log('this is this.state in render', this.state)
-    const data = [];
+    const data = [];      // month data
     let week = [];
     for (let el in this.props.info.history) {
       data.push({
-        date: el.slice(5),
+        date: el.slice(5),      // remove year for graph view
         value:
           this.props.info.history[el][this.props.info.curr2] *
           this.props.info.value,
       });
     }
-    week = data.slice(data.length - 7);
-    //  this.setState({week: data.slice(data.length-8), month:data});
-    //  console.log('happening in cDidMount', data);
-    //  console.log('happening in cDidMount', this.state.month);
-    if (this.state.flag) {
+    week = data.slice(data.length - 7);     // grab last seven days
+    // for next team:
+      // consider turning AreaChart to LineChart if filled in color under linearGradient unwanted. test by uncommenting <stop>s in linearGradient. ResponsiveContainer can be taken out if chart is set to fixed dimensions.
+    if (this.state.toWeekView) {      // hacky last minute solution, apologies, line 99 for else
       return (
         <div className="build">
           <div className="wrapper2">
@@ -89,7 +81,7 @@ class Graph extends Component {
                 />
 
                 <Tooltip />
-                {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison */}
+                {/* <Line type="monotone" dataKey="bitcoin" stroke="#82ca9d"/> //if given 1+ point of comparison // MAY WANT TO CONSIDER if comparing one trend with the next */}
                 <CartesianGrid
                   opacity={0.1}
                   vertical={false}

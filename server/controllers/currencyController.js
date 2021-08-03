@@ -1,6 +1,3 @@
-// import CurrencyModel as Currency from  "./CurrencyModel.js"
-// const Currency = require('../models/currencyModel'); // import statement is ES6 syntax but throws Typescript linting failure, if COMPLETELY fails switch lines
-
 const currencyApiKey = '1ffa62edcf0ab7a273524c03abf11876';
 //currency key from exchanges rates API. Good until 8/31/2021.
 const fetch = require('node-fetch');
@@ -14,9 +11,6 @@ const fetch = require('node-fetch');
 const currencyController = {};
 
 currencyController.getRate = async (req, res, next) => {
-  // console.log('Successfully entered getRate');
-  // const currencyOne =
-  // const currencyTwo =
   try {
     const { curr1, curr2 } = req.body;
     const result = await fetch(
@@ -43,7 +37,6 @@ currencyController.getHistory = async (req, res, next) => {
       `https://api.exchangeratesapi.io/v1/timeseries?access_key=${currencyApiKey}&start_date=${aMonthAgo}&end_date=${today}&base=${curr1}&symbols=${curr2}`
     );
     const json = await result.json();
-    // console.log('HISTORY RESULT', json);
     res.locals.rate.history = json.rates;
     return next();
   } catch (err) {

@@ -4,22 +4,20 @@ const currencyApi = require('./routes/currencyApi');
 const cors = require('cors');
 const databaseController = require('./controllers/databaseController');
 
-const PORT = 3000; // may need to change ML
+const PORT = 3000;
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //bodyParser deprecatd ML
 app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
-// app.use('/login', express.static(path.join(__dirname, '../client/')))
-// app.use('/login', express.static(path.join(__dirname, '../client/')));
 
 app.use(cors());
 // define route handlers
 app.use('/currencyApi', currencyApi);
 
-// app.use(express.static(path.join(__dirname, '../client/')))
 
+// oops did u think any of the buttons below worked lol
 app.get('/login', (req, res) => {
   res.status(200).render(path.join(__dirname, '../client/Login.jsx'));
 });

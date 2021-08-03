@@ -1,7 +1,7 @@
 GIT INSTRUCTIONS, Mark Liu 31.7.21
 
-  Please refer to these directions for work on this project.
-  In order to facilitate better workflow, please follow the steps below:
+  Please refer to these directions for work on this project. From commit down, you'll repeat these - a LOT. Practice makes slightly less frantic & confused!
+  In order to facilitate better workflow, please follow the steps below!
 
 
 
@@ -66,8 +66,10 @@ SHARE THE LOVE
 
 
 Please run these steps independently precisely following the order above.
+If merge issues occur(they will, but no worries!), review them in your editor before moving on.
 The nuclear option which will always work, and most seniors have resorted to throughout their time at Codesmith (as well as people in the industry), is to copy your code into separate backup files, delete the ENTIRE FOLDER (it's on GitHub, don't worry!), clone the repo again, paste in your code, and go from the Commit section above.
 
+Please use your computer terminal NOT IN VS CODE, especially if debugging!
 
 
 If there are any issues, message me individually and we can jump into a Zoom room together!

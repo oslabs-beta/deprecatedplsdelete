@@ -30,7 +30,7 @@ class Navigation extends Component {
           </div>
         </div>
         <div>
-          <h1>LUCASVERTER</h1>
+          <h1>LUCAVERTER</h1>
         </div>
       </div>
     );
