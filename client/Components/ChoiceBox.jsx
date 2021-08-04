@@ -174,6 +174,17 @@ class ChoiceBox extends Component {
       'ZWL',
     ];
     const options = arr.map((el, i) => <option key={i}> {el} </option>); // data to fill dropdown menu with symbols
+    
+    const submitCurrency = () => {
+      fetch('/user/add', {
+        method: 'post',
+        body: JSON.stringify({
+          incoming_currency: this.props.info.curr1,
+          target_currency: this.props.info.curr2,
+          userId: //googleID
+      })
+    };
+
     return (
       <>
         <div className="wrapper__ON_ChoiceBox_style">
@@ -208,8 +219,13 @@ class ChoiceBox extends Component {
                 value={this.props.info.value}
                 onChange={this.props.valueChange}
                 className="inputAmount"
-                placeholder="  Input your amount here"
+                placeholder="  Input your amount here" 
                 required
+              />
+              <button
+                type="submit"
+                className="signup-btn"
+                onClick={}
               />
             </div>
             <h2>{this.props.info.curr1} TAFFOVERTER HISTORY</h2>

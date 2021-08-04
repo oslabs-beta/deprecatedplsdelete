@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
+const userRouter = require('./routes/user');
 const cors = require('cors');
 const currencyController = require('./controllers/currencyController');
 const dotenv = require('dotenv');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 app.use(cors());
 // define route handlers
 app.use('/currencyApi', currencyApi);
+app.use('/user', userRouter);
 
 app.post('/auth/google', currencyController.setCookie, (req, res) => {
   return res.status(200).redirect('/');
@@ -29,12 +31,14 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('../client/Signup.jsx');
+  res.render('../client/Signup.jsx'); //ILLEGAL in react no?
 });
 
 app.post('/signup', databaseController.createUser, (req, res) => {
-  res.status(200).redirect('/');
+  res.status(200).redirect('/'); //ILLEGAL in react no?
 });
+
+
 
 /**
  * 404 handler
