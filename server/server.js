@@ -3,11 +3,14 @@ const path = require('path');
 const currencyApi = require('./routes/currencyApi');
 const userRouter = require('./routes/user');
 const cors = require('cors');
-const databaseController = require('./controllers/databaseController');
-
-const PORT = 3000;
+const currencyController = require('./controllers/currencyController');
+const dotenv = require('dotenv');
+dotenv.config({path: path.resolve(__dirname, '../config.env' )})
+const cookie = require('cookie');
+const cookieParser = require('cookie-parser');
 
 const app = express();
+app.use(cookieParser())
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json()); //bodyParser deprecatd ML
@@ -18,6 +21,9 @@ app.use(cors());
 app.use('/currencyApi', currencyApi);
 app.use('/user', userRouter);
 
+app.post('/auth/google', currencyController.setCookie, (req, res) => {
+  return res.status(200).redirect('/');
+})
 
 // oops did u think any of the buttons below worked lol
 app.get('/login', (req, res) => {
@@ -26,10 +32,6 @@ app.get('/login', (req, res) => {
 
 app.get('/signup', (req, res) => {
   res.render('../client/Signup.jsx'); //ILLEGAL in react no?
-});
-
-app.post('/login', databaseController.userLogin, (req, res) => {
-  res.status(200).redirect('/'); //ILLEGAL in react no?
 });
 
 app.post('/signup', databaseController.createUser, (req, res) => {
@@ -52,8 +54,8 @@ app.use((err, req, res, next) => {
   res.status(500).send('Internal Server Error');
 });
 
-app.listen(PORT, () => {
-  console.log(`Server listening on port: ${PORT}`); // just to test
+app.listen(process.env.PORT, () => {
+  console.log(`Server listening on port: ${process.env.PORT}`); // just to test
 });
 
 module.exports = app;

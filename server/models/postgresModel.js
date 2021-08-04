@@ -1,9 +1,8 @@
   // import Pool from 'pg';
 const { Pool } = require('pg');
-const PG_URI = 'postgres://ycmhdnyk:pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8@chunee.db.elephantsql.com/ycmhdnyk'
 
 const pool = new Pool({
-  connectionString: PG_URI
+  connectionString: process.env.PG_URI
 });
 
 
@@ -37,6 +36,7 @@ CREATE TABLE user_table (
   amt_usd NUMERIC(30,2) NOT NULL CHECK (amt_usd >= 0.00), 
   fav_rates SMALLINT[] NOT NULL FOREIGN KEY, 
   base_currency SMALLINT NOT NULL FOREIGN KEY
+  token
   )
 
 assign foreign keys only after creating new tables that it will reference
