@@ -16,7 +16,7 @@ class Login extends Component {
     this.responseGoogle = this.responseGoogle.bind(this);
     // this.handleLogin = this.handleLogin.bind(this);
   }
-
+  // can handle pushing data to the backend here - with some changes
   // async handleLogin(googleData) {
   //   const res = await fetch("/api/v1/auth/google", {
   //   method: "POST",
@@ -35,7 +35,9 @@ class Login extends Component {
   responseGoogle = (response) => {
     console.log("triggering now");
     this.setState( {accessToken: response.accessToken });
-    console.log('response',response.accessToken);
+    console.log('response access token',response.accessToken);
+    console.log('full googleId', response.googleId);
+    console.log('full response obj', response);
     console.log(this.state);
   }
 
