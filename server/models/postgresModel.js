@@ -1,5 +1,5 @@
-import Pool from 'pg';
-
+// import Pool from 'pg';
+const { Pool } = require('pg');
 const PG_URI = 'postgres://ycmhdnyk:pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8@chunee.db.elephantsql.com/ycmhdnyk'
 
 const pool = new Pool({
