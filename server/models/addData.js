@@ -1,5 +1,6 @@
 const {query} = require('./postgresModel.js');
 const pool = require('./postgresModel.js'); 
+require('regenerator-runtime/runtime')
 
 let currencyData = [{
 	"symbol": "$",

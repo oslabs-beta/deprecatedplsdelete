@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
-
+require('regenerator-runtime/runtime')
 
 class Login extends Component {
   constructor (props) {

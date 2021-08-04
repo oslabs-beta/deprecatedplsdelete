@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from './User/Login.jsx';
 import Signup from './User/Signup.jsx';
 import ChoiceBox from './Components/ChoiceBox.jsx';

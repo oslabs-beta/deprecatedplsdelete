@@ -181,9 +181,10 @@ class ChoiceBox extends Component {
         body: JSON.stringify({
           incoming_currency: this.props.info.curr1,
           target_currency: this.props.info.curr2,
-          userId: //googleID
+          userId: 'test' //googleID
       })
-    };
+    })
+  }
 
     return (
       <>
@@ -225,7 +226,7 @@ class ChoiceBox extends Component {
               <button
                 type="submit"
                 className="signup-btn"
-                onClick={}
+                onClick={()=>console.log('hi')}
               />
             </div>
             <h2>{this.props.info.curr1} TAFFOVERTER HISTORY</h2>

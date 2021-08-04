@@ -3,7 +3,7 @@ const { query } = require('../models/postgresModel.js');
 const pool = require('../models/postgresModel.js'); 
 //currency key from exchanges rates API. Good until 8/31/2021.
 const fetch = require('node-fetch');
-
+require('regenerator-runtime/runtime')
 // https://api.exchangeratesapi.io/v1/convert
 // ? access_key = API_KEY
 // & from = GBP

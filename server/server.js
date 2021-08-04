@@ -34,9 +34,9 @@ app.get('/signup', (req, res) => {
   res.render('../client/Signup.jsx'); //ILLEGAL in react no?
 });
 
-app.post('/signup', databaseController.createUser, (req, res) => {
-  res.status(200).redirect('/'); //ILLEGAL in react no?
-});
+// app.post('/signup', databaseController.createUser, (req, res) => {
+//   res.status(200).redirect('/'); //ILLEGAL in react no?
+// });
 
 
 
