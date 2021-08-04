@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom"
 import Login from './User/Login.jsx';
 import Signup from './User/Signup.jsx';
 import ChoiceBox from './Components/ChoiceBox.jsx';
@@ -85,26 +90,62 @@ class App extends Component {
 
   render() {
     return (
-      <>
-        <div>
-          <BrowserRouter>
+      <Router>
+        <div className="header">
+          <div className="topButtons">
+            <div className="leftButtons">
+              <Link to='/signup'>
+                <button
+                  className="signup-btn"
+                  // onClick={(event) => {
+                  //   console.log('trying to send you to singup');
+                  //   console.log(this.state);
+                  //   this.setState({ currentpage: 'signup' });}}
+                >
+                  {' '}
+                  Signup{' '}
+                </button>
+              </Link>
+
+              <Link to="/login">
+                <button
+                  className="login-btn"
+                >
+                  {' '}
+                  Login{' '}
+                </button>
+              </Link>
+            </div>
+            <div className="rightButtons">
+              <button>Learn More</button>
+              <button>Contact Us</button>
+            </div>
+          </div>
+          <div>
+            <Link to="/">
+            <h1>LUCAVERTER</h1>
+            </Link>
+          </div>
+      </div>
             <Switch>
-              <Route exact path="/" />
-              <Route path="/login" render={() => <Login />} />
-              <Route path="/signup" render={() => <Signup />} />
+              <Route exact path="/">
+                <ConversionBox info={this.state} />
+                <ChoiceBox
+                  info={this.state}
+                  curr1Change={this.curr1Change}
+                  curr2Change={this.curr2Change}
+                  valueChange={this.valueChange}
+                />
+                <Graph info={this.state} />
+              </Route>
+              <Route path="/login">
+                <Login/>
+              </Route>
+              <Route path="/signup">
+                <Signup/>
+              </Route>
             </Switch>
-          </BrowserRouter>
-        </div>
-        <Navigation />
-        <ConversionBox info={this.state} />
-        <ChoiceBox
-          info={this.state}
-          curr1Change={this.curr1Change}
-          curr2Change={this.curr2Change}
-          valueChange={this.valueChange}
-        />
-        <Graph info={this.state} />
-      </>
+      </Router>
     );
   }
 }
