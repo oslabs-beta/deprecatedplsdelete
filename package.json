@@ -19,10 +19,12 @@
   "dependencies": {
     "axios": "^0.21.1",
     "browserify": "^17.0.0",
+    "cookie": "^0.4.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
     "css-loader": "^6.2.0",
     "date-fns": "^2.23.0",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "express-session": "^1.17.2",
     "google-auth-library": "^7.4.1",
