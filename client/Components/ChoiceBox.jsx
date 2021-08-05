@@ -31,7 +31,7 @@ class ChoiceBox extends Component {
           <div className="wrapper__ON_ChoiceBox">
             <div className="wrapperChoicebox">
               <div className="currency1">
-                <label className="c1test">Base Currency</label>
+                <label className="c1test">Currency 1</label>
                 <select
                   value={this.props.info.curr1}
                   onChange={this.props.curr1Change}
@@ -42,10 +42,21 @@ class ChoiceBox extends Component {
                 </select>
               </div>
               <div className="currency2">
-                <label className="c2test">Foreign Currency</label>
+                <label className="c2test">Currency 2</label>
                 <select
                   value={this.props.info.curr2}
                   onChange={this.props.curr2Change}
+                  required
+                >
+                  <option>Choose</option>
+                  {options}
+                </select>
+              </div>
+              <div className="defaultcurr">
+                <label className="cxtest">Choose Base Currency</label>
+                <select
+                  value={this.props.info.curr1}
+                  onChange={this.props.curr1Change}
                   required
                 >
                   <option>Choose</option>
@@ -62,12 +73,14 @@ class ChoiceBox extends Component {
                 placeholder="  Input your amount here" 
                 required
               />
+              <div className="button2">
               <button
                 type="submit"
                 className="signup-btn"
-                onClick={()=>console.log('hi, add to portfolio function will go here')}
+                onClick={()=>this.submitCurrency}
               >Add to Portfolio
               </button>
+              </div>
             </div>
             <h2>{this.props.info.curr1} HISTORY</h2>
           </div>

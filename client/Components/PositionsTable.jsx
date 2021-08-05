@@ -25,7 +25,7 @@ class PositionsTable extends Component {
       <>
       <div className="wrapper_on_table">
         <TableContainer component={Paper}>
-          <Table className={{maxWidth: 100}} aria-label="simple table">
+          <Table className='tabletest' aria-label="simple table">
             <TableHead>
               <TableRow>
                 <TableCell>Currency</TableCell>
