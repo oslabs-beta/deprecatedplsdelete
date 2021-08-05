@@ -47,6 +47,9 @@ app.get('/user/getPort', currencyController.getPortfolio, (req, res) => {
 
 })
 
+app.post('/getAllRates', currencyController.getAllRates, (req,res) => {
+  return res.status(200).json(res.locals.rates)
+})
 /**
  * 404 handler
  */

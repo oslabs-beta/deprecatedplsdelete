@@ -22,7 +22,7 @@ class App extends Component {
       curr1: 'USD', //USD
       curr2: 'EUR', //EUR
       value: '1', //your amount
-      conversionRate: 2, //test rate, will be overwritten by state change
+      conversionRate: .845, //test rate, will be overwritten by state change
       converted: '',
       history: '', //your amount * conversionrate
       basecurr: 'USD',
@@ -39,8 +39,9 @@ class App extends Component {
   getPortfolio() {
     axios('/user/getPort')
       .then(res => {
-        console.log('getportfolio axios is happening now')
-        this.setState({portfolio: res}) //spread state in???
+        console.log('res looks like this', res)
+        console.log('res.data looks like this', res.data)
+        this.setState({portfolio: res.data})
       })
       .then(()=> {
         console.log('this is state', this.state)
@@ -52,18 +53,33 @@ class App extends Component {
 
   componentDidMount() {
     // const x = Promise.resolve(this.setState({ value: event.target.value }));
+    axios
+      .post('http://localhost:3000/currencyApi', {
+        curr1: this.state.curr1,
+        curr2: this.state.curr2,
+      })
+      .then((response) => {
+        this.setState({ conversionRate: response.data.info.rate });
+        this.setState({ history: response.data.history });
+      })
+      .catch((error) => {
+        console.log('Value change error!!', error, ':(');
+      });
+
       axios
-        .post('http://localhost:3000/currencyApi', {
-          curr1: this.state.curr1,
-          curr2: this.state.curr2,
-        })
-        .then((response) => {
-          this.setState({ conversionRate: response.data.info.rate });
-          this.setState({ history: response.data.history });
-        })
-        .catch((error) => {
-          console.log('Value change error!!', error, ':(');
-        });
+      .post('/getAllRates', {
+        basecurr: this.state.basecurr
+      })
+      .then(response => {
+        this.setState({ allRates: response.data.rates });
+      })
+      .then(() => this.getPortfolio())
+      .then(()=> console.log(this.state))
+      .catch((error) => {
+        console.log('base curr change error!!', error, ':(');
+      });
+      
+    this.getPortfolio();
 
   }
   curr1Change(event) {
@@ -80,6 +96,24 @@ class App extends Component {
 
   baseCurrChange(event) {
    this.setState({ basecurr: event.target.value });
+   // https://api.exchangeratesapi.io/v1/latest?access_key=1ffa62edcf0ab7a273524c03abf11876&base=USD
+   // object.rates
+   const x = Promise.resolve(this.setState({ basecurr: event.target.value }));
+    x.then(() => {
+      axios
+        .post('/getAllRates', {
+          basecurr: this.state.basecurr
+        })
+        .then(response => {
+          this.setState({ allRates: response });
+        })
+        .then(() => this.getPortfolio())
+        .then(()=> console.log(this.state))
+        .catch((error) => {
+          console.log('base curr change error!!', error, ':(');
+        });
+    });
+   
   }
   valueChange(event) {
     

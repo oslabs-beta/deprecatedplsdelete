@@ -9,17 +9,33 @@ import Paper from '@material-ui/core/Paper';
 class PositionsTable extends Component {
   constructor (props) {
     super(props);
+
   }
   
   // are we receiving table info as props here 
+  
+  
   render() {
+    const rows = []
+    for(let i = 0; i < this.props.info.portfolio.length; i++) {
+      let el = this.props.info.portfolio[i];
+      rows.push({currency: el.currency_acronym, 
+        local_value: (Math.round(100*el.local_value)/100).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ","),
+        base_value: (Math.round(100*el.local_value / this.props.info.allRates[el.currency_acronym])/100).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      })
+    }
     
+    // {currency: 'USD', base_value: 1, usd_value: 1}, 
+    //     {currency: 'JPY', base_value: 100, usd_value: 1},
+    //     {currency: 'EUR', base_value: 120, usd_value: 100},
     // const rows = this.props
-    const rows = [
-        {currency: 'USD', base_value: 1, usd_value: 1}, 
-        {currency: 'JPY', base_value: 100, usd_value: 1},
-        {currency: 'EUR', base_value: 120, usd_value: 100},
-    ]
+    // console.log('this.props.info portfolio is here', this.props.info.portfolio)
+    // // const rows = this.props.info.portfolio.map(el => {
+    // //   return { currency: el.currency_acronym, 
+    // //           local_value: el.local_value,
+    // //           base_value: el.local_value * this.props.info.allRates[el.currency_acronym] }
+    // // })
+    // console.log(rows, 'rows are here in positionstable')
     
     return (
       <>
@@ -35,12 +51,12 @@ class PositionsTable extends Component {
             </TableHead>
             <TableBody>
               {rows.map((row) => (
-                <TableRow key={row.currency}>
+                <TableRow key={row.local_value}>
                   <TableCell component="th" scope="row">
                     {row.currency}
                   </TableCell>
+                  <TableCell align="right">{row.local_value}</TableCell>
                   <TableCell align="right">{row.base_value}</TableCell>
-                  <TableCell align="right">{row.usd_value}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
