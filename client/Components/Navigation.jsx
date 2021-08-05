@@ -42,13 +42,14 @@ class Navigation extends Component {
               Login{' '}
             </button>
           </div>
+          
           <div className="rightButtons">
             <button>Learn More</button>
             <button>Contact Us</button>
           </div>
         </div>
         <div>
-          <h1>LUCAVERTER</h1>
+        
         </div>
       </div>
     );

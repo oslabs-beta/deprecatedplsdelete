@@ -26,13 +26,13 @@ app.post('/auth/google', currencyController.setCookie, (req, res) => {
 })
 
 // oops did u think any of the buttons below worked lol
-app.get('/login', (req, res) => {
-  res.status(200).render(path.join(__dirname, '../client/Login.jsx'));
-});
+// app.get('/login', (req, res) => {
+//   res.status(200).render(path.join(__dirname, '../client/Login.jsx'));
+// });
 
-app.get('/signup', (req, res) => {
-  res.render('../client/Signup.jsx'); //ILLEGAL in react no?
-});
+// app.get('/signup', (req, res) => {
+//   res.render('../client/Signup.jsx'); //ILLEGAL in react no?
+// });
 
 app.post('/user/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
   return res.status(200).send('Added to portfolio!');
