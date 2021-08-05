@@ -5,7 +5,6 @@ const pool = new Pool({
   connectionString: process.env.PG_URI
 });
 
-
 module.exports = {
   query: (text, params, callback) => {
     console.log('executed query', text);
@@ -19,15 +18,11 @@ Hold value for each user of
 
 POSTGRES INFO
 
-Password: 
-pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8
 
-URL:
-postgres://ycmhdnyk:pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8@chunee.db.elephantsql.com/ycmhdnyk
 
-API Key:
-1293faf4-422a-4876-8061-392e318f3d57
+assign foreign keys only after creating new tables that it will reference
 
+still needs foreign ID of base currency 
 
 tables below are created and submitted
 
@@ -39,11 +34,6 @@ CREATE TABLE user_table (
   token
   )
 
-assign foreign keys only after creating new tables that it will reference
-
-still needs foreign ID of base currency 
-
-
 
 CREATE TABLE currency_descriptions (
   currency_id SERIAL PRIMARY KEY,
@@ -52,8 +42,6 @@ CREATE TABLE currency_descriptions (
   countries_used VARCHAR[] NOT NULL,
   symbol VARCHAR(1),
   );
-
-
 
 
 CREATE TABLE currency_history (

@@ -17,6 +17,7 @@
   "author": "Shawn Convery, Oleksii Hordiienko, Mark Liu, Hasan Ozutemiz, Lucas Taffo",
   "license": "MIT",
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
     "axios": "^0.21.1",
     "browserify": "^17.0.0",
     "cookie": "^0.4.0",
