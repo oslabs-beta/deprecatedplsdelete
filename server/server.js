@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
+const userRouter = require('./routes/user');
 const cors = require('cors');
 const currencyController = require('./controllers/currencyController');
 const dotenv = require('dotenv');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 app.use(cors());
 // define route handlers
 app.use('/currencyApi', currencyApi);
+app.use('/user', userRouter);
 
 app.post('/auth/google', currencyController.setCookie, (req, res) => {
   return res.status(200).redirect('/');
@@ -29,12 +31,21 @@ app.get('/login', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-  res.render('../client/Signup.jsx');
+  res.render('../client/Signup.jsx'); //ILLEGAL in react no?
 });
 
-app.post('/signup', databaseController.createUser, (req, res) => {
-  res.status(200).redirect('/');
-});
+app.post('/user/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
+  return res.status(200).send('Added to portfolio!');
+})
+
+// app.post('/signup', databaseController.createUser, (req, res) => {
+//   res.status(200).redirect('/'); //ILLEGAL in react no?
+// });
+
+app.get('/user/getPort', currencyController.getPortfolio, (req, res) => {
+ return res.status(200).json(res.locals.portfolio)
+
+})
 
 /**
  * 404 handler
@@ -47,7 +58,14 @@ app.use('*', (req, res) => {
  * Global error handler
  */
 app.use((err, req, res, next) => {
-  res.status(500).send('Internal Server Error');
+  const defaultErr = {
+    log: 'Express error handler caught unknown middleware error',
+    status: 500,
+    message: { err: 'An error occurred' },
+  };
+  const errorObj = Object.assign({}, defaultErr, err);
+  console.log(errorObj.log);
+  return res.status(errorObj.status).json(errorObj.message);
 });
 
 app.listen(process.env.PORT, () => {
@@ -55,55 +73,3 @@ app.listen(process.env.PORT, () => {
 });
 
 module.exports = app;
-
-/*
-
-Hold value for each user of 
-
-POSTGRES INFO
-
-Password: 
-pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8
-
-URL:
-postgres://ycmhdnyk:pNpg9xHq_KEAifOWMLk0qjdO7Wto9IF8@chunee.db.elephantsql.com/ycmhdnyk
-
-API Key:
-1293faf4-422a-4876-8061-392e318f3d57
-
-
-tables below are created and submitted
-
-CREATE TABLE [IF NOT EXISTS] user_table ( user_id VARCHAR PRIMARY KEY, amt_usd NUMERIC(30,2) NOT NULL CHECK (amt_usd >= 0.00), fav_rates SMALLINT[] NOT NULL FOREIGN KEY, base_currency SMALLINT NOT NULL FOREIGN K
- EY
-
-assign foreign keys only after creating new tables that it will reference
-
-still needs foreign ID of base currency 
-
-
-
-CREATE TABLE currency_descriptions (
-  currency_id SERIAL PRIMARY KEY,
-  currency_name VARCHAR(50) NOT NULL,
-  currency_acronym CHAR(3) NOT NULL,
-  countries_used VARCHAR[] NOT NULL,
-  symbol VARCHAR(1),
-  );
-
-CREATE TABLE currency_history (
-  currency_history_id SERIAL PRIMARY KEY,
-  currency_id int NOT NULL REFERENCES currency_descriptions,
-  date DATE NOT NULL DEFAULT CURRENT_DATE,
-  exchange_rate_USD NUMERIC(20, 10) NOT NULL
-);
-
-
-CREATE TABLE positions (
-  position_id SERIAL PRIMARY KEY,
-  currency_id int NOT NULL REFERENCES currency_descriptions,
-  local_value NUMERIC(30, 10) NOT NULL,
-  user_id VARCHAR NOT NULL REFERENCES user_table
-);
-  
-*/

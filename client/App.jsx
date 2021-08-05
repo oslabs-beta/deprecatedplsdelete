@@ -1,18 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from './User/Login.jsx';
 import Signup from './User/Signup.jsx';
 import ChoiceBox from './Components/ChoiceBox.jsx';
 import Graph from './Components/Graph.jsx';
 import Navigation from './Components/Navigation.jsx';
 import ConversionBox from './Components/ConversionBox.jsx';
-
+import PositionsTable from './Components/PositionsTable.jsx'
 // design login/signup page hasan/shawn
 // connect to router
 // fix x&y axis
@@ -129,6 +124,7 @@ class App extends Component {
       </div>
             <Switch>
               <Route exact path="/">
+                <PositionsTable/>
                 <ConversionBox info={this.state} />
                 <ChoiceBox
                   info={this.state}

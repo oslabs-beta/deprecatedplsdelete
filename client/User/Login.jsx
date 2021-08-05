@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
-
+require('regenerator-runtime/runtime')
 
 class Login extends Component {
   constructor (props) {
@@ -48,15 +48,16 @@ class Login extends Component {
   // // store returned user somehow
   // }
 
-  responseGoogle = (response) => {
-    console.log("triggering now");
-    this.setState( {accessToken: response.accessToken });
-    console.log('response access token',response.accessToken);
-    console.log('full googleId', response.googleId);
-    console.log('full response obj', response);
-    console.log(this.state);
+  // // test function
+  // responseGoogle = (response) => {
+  //   console.log("triggering now");
+  //   this.setState( {accessToken: response.accessToken });
+  //   console.log('response access token',response.accessToken);
+  //   console.log('full googleId', response.googleId);
+  //   console.log('full response obj', response);
+  //   console.log(this.state);
     
-  }
+  // }
 
   
   render() {
