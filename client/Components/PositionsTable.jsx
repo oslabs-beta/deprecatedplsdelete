@@ -14,7 +14,7 @@ class PositionsTable extends Component {
   // are we receiving table info as props here 
   render() {
     
-    // const rows = this.props.data
+    // const rows = this.props
     const rows = [
         {currency: 'USD', base_value: 1, usd_value: 1}, 
         {currency: 'JPY', base_value: 100, usd_value: 1},
@@ -29,8 +29,8 @@ class PositionsTable extends Component {
             <TableHead>
               <TableRow>
                 <TableCell>Currency</TableCell>
-                <TableCell align="right">Value(in base currency)</TableCell>
-                <TableCell align="right">Value(USD)</TableCell>
+                <TableCell align="right">Value(local)</TableCell>
+                <TableCell align="right">Value(base)</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>

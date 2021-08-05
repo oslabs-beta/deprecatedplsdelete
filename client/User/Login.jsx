@@ -19,11 +19,15 @@ class Login extends Component {
   }
 
   async handleLogin(googleData) {
-    const res = await axios({
+    axios({
       method: "post",
       url: "/auth/google",
       data: { token: googleData.accessToken, id: googleData.googleId }
-    });
+    }).then(res=> {
+      if (res.status === 200) {
+        
+      }
+    })
     
   }
     // const data = await res.json() // may come back as json already
