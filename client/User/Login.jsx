@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { render } from 'react-dom';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
 require('regenerator-runtime/runtime')
@@ -18,13 +24,20 @@ class Login extends Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  async handleLogin(googleData) {
-    const res = await axios({
+  handleLogin(googleData) {
+    const res = axios({
       method: "post",
       url: "/auth/google",
       data: { token: googleData.accessToken, id: googleData.googleId }
-    });
-    
+    })
+    .then( res => {
+      if (res.status === 200) {
+        this.setState({ isLoggedIn: true })
+      }
+    })
+    .catch( (err) => {
+      console.log(err)
+    })    
   }
     // const data = await res.json() // may come back as json already
     // console.log("returned user data", data);
@@ -55,19 +68,20 @@ class Login extends Component {
     console.log('response access token',response.accessToken);
     console.log('full googleId', response.googleId);
     console.log('full response obj', response);
-    console.log(this.state);
+    // console.log(this.state);
+    this.setState({ isLoggedIn: true })
     
   }
 
   
   render() {
+    if (!this.state.isLoggedIn){
     return (
       <div>
         <GoogleLogin
         clientId="689937676919-hqbq0jspagnb2003k5qp25melhte9t0c.apps.googleusercontent.com"
         buttonText="Login with Google"
-        onSuccess={this.handleLogin}
-        onFailure={()=> window.location.href = "/login"}
+        onSuccess={this.responseGoogle}
         cookiePolicy="single_host_origin"
       />
           {/* <form method="POST" action="/login">
@@ -79,6 +93,11 @@ class Login extends Component {
           </form> */}
         </div>
       );
+    } else if (this.state.isLoggedIn) {
+      return (
+        <Redirect to='/' />
+      );
+    }
   }
 };
 
