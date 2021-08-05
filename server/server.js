@@ -22,7 +22,7 @@ app.use('/currencyApi', currencyApi);
 app.use('/user', userRouter);
 
 app.post('/auth/google', currencyController.setCookie, (req, res) => {
-  return res.status(200).redirect('/');
+  return res.status(200).json('success');
 })
 
 // oops did u think any of the buttons below worked lol
@@ -34,8 +34,7 @@ app.post('/auth/google', currencyController.setCookie, (req, res) => {
 //   res.render('../client/Signup.jsx'); //ILLEGAL in react no?
 // });
 
-app.post('/user/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
-  console.log('test to see if it reaches here - app.post addPort post')
+app.post('/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
   return res.status(200).send('Added to portfolio!');
 })
 
@@ -44,7 +43,7 @@ app.post('/user/addPort', currencyController.getCurrencyId, currencyController.a
 // });
 
 app.get('/user/getPort', currencyController.getPortfolio, (req, res) => {
- return res.status(200).json(res.locals.portfolio)
+ return res.status(200).json(res.locals.portfolio);
 
 })
 

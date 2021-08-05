@@ -5,20 +5,23 @@ class ChoiceBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      
     }
-    this.submitCurrency =this.submitCurrency.bind(this);
+    this.addToPort =this.addToPort.bind(this);
 
   }
   
-  submitCurrency = () => {
-    fetch('/user/addPort', {
+  addToPort = async () => {
+    await fetch('/addPort', {
       method: 'post',
+      headers: {
+        'Content-Type': 'application/json'
+      },
       body: JSON.stringify({
         currency_acronym: this.props.info.curr1,
-        amt_usd: this.props.info.value
+        amt: this.props.info.value
       })
     })
+    this.props.getPortfolio()
   }
 
   findFed = () => {
@@ -61,8 +64,8 @@ class ChoiceBox extends Component {
               <div className="defaultcurr">
                 <label className="cxtest">Choose Base Currency</label>
                 <select
-                  value={this.props.info.curr1}
-                  onChange={this.props.curr1Change}
+                  value={this.props.info.basecurr}
+                  onChange={this.props.baseCurrChange}
                   required
                 >
                   <option>Choose</option>
@@ -83,7 +86,7 @@ class ChoiceBox extends Component {
                 <button
                   type="submit"
                   className="signup-btn"
-                  onClick={this.submitCurrency}
+                  onClick={this.addToPort}
                 >Add to Portfolio
                 </button>
               </div>
