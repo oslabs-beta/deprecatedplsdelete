@@ -8,33 +8,12 @@ import Graph from './Components/Graph.jsx';
 import Navigation from './Components/Navigation.jsx';
 import ConversionBox from './Components/ConversionBox.jsx';
 import PositionsTable from './Components/PositionsTable.jsx'
-// design login/signup page hasan/shawn
-// connect to router
-// fix x&y axis
-// style the page lucas
-
-// After discussion & input from Mike, ISSUE IS:
-// Back end is giving all data at once. Unless they can separate out functionality, state cannot be separated between graph and stateholder and must re-render on every single change.
-// Else, we can BLOW UP state to hold ALL database for the user as well as current conversion rates & amounts. This would slow down the app significantly.
 
 // | App
 //   |Graph (Graph) (only accesses database?)
 //   |StateHolder
 //     |ConversionBox
 //     |ChoiceBox
-
-// hello fellow 27 iterators! I did the frontend more so it might be a little more commented. Feel free to message if any questions!
-// basically what we didn't get to was:
-  // the login and signup pages literally don't render. threw in oleksii.js at the last min, still didn't render. not sure if react router is necessary. issue is same as before all that was added
-  // oauth, user accounts
-  // database management: tracking each person's fav currencies and those over time. holding those in the database. please consider if the conversion to SQL might contribute very handily to these relations
-  // oleksii & i tried for an evening converting to hooks, but scope of data was so small for today that we decided against it. if you expand, please consider!
-  // compare against other investment trends ie stocks/crypto for starters
-  // nesting the scss
-  // naming divs usefully...
-// other notes:
-  // put the connection to DB within the models. nesting not ideal. recommend thinknig about RDBMS
-
 
 class App extends Component {
   constructor(props) {
@@ -46,11 +25,29 @@ class App extends Component {
       conversionRate: 2, //test rate, will be overwritten by state change
       converted: '',
       history: '', //your amount * conversionrate
-      basecurr: 'USD'
+      basecurr: 'USD',
+      portfolio: [],
+      allRates: {}
     };
     this.curr1Change = this.curr1Change.bind(this);
     this.curr2Change = this.curr2Change.bind(this);
     this.valueChange = this.valueChange.bind(this);
+    this.getPortfolio = this.getPortfolio.bind(this);
+    this.baseCurrChange = this.baseCurrChange.bind(this);
+  }
+
+  getPortfolio() {
+    axios('/user/getPort')
+      .then(res => {
+        console.log('getportfolio axios is happening now')
+        this.setState({portfolio: res}) //spread state in???
+      })
+      .then(()=> {
+        console.log('this is state', this.state)
+      })
+      .catch(err => {
+        console.log('axios caught in getPortfolio on App.jsx', err)
+      })
   }
 
   componentDidMount() {
@@ -81,6 +78,9 @@ class App extends Component {
     this.setState({ curr2: event.target.value });
   }
 
+  baseCurrChange(event) {
+   this.setState({ basecurr: event.target.value });
+  }
   valueChange(event) {
     
     const x = Promise.resolve(this.setState({ value: event.target.value }));
@@ -140,12 +140,15 @@ class App extends Component {
                 <div id="together">
                   <ConversionBox info={this.state} />
                   <ChoiceBox
+                    getPortfolio={this.getPortfolio}
                     info={this.state}
                     curr1Change={this.curr1Change}
                     curr2Change={this.curr2Change}
                     valueChange={this.valueChange}
+                    baseCurrChange={this.baseCurrChange}
                   />
-                  <PositionsTable/>
+                  <PositionsTable info={this.state}
+                   getPortfolio={this.getPortfolio} />
                   </div>
                 <Graph info={this.state} />
               </Route>

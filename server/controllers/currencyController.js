@@ -20,18 +20,26 @@ currencyController.setCookie = async (req, res, next) => {
     // if don't exist, add user
     // if exist, update access token
     // place in db
+    // await pool.query('SELECT * FROM currency_descriptions', (err, data) => {
+    //   // if (err) return next(err);
+    //   console.log('data on line 31', data);
+    //   console.log('err', err);
+    //   return next();
+    // })
+    // change fav_rates to string type 
     await pool.query(`INSERT INTO user_table(user_id, amt_usd, fav_rates, base_currency, token)
-      VALUES('${id}', 0, 'ARRAY ${[]}', 1, '${token}') 
+      VALUES('${id}', 0, ARRAY[1], 1, '${token}') 
       ON CONFLICT (user_id) DO UPDATE SET token = '${token}'`)
       .catch(err => {
-        console.log('err in setCookie', err)
+        console.log('err in setCookie psql query', err)
       })
     // send cookie back to user
     res.cookie('token', token, { maxAge: 1800000});
     // set cookie for id as well
-    res.cookie('idCookie', id);
+    res.cookie('idCookie', id); //goddamnit brian !
+    return next();
   } catch (err) {
-    return next('Error found in setCookie', err)
+    return next('try catch Error found in setCookie', err)
   }
 }
 
@@ -67,24 +75,32 @@ currencyController.checkCookie = async (req, res, next) => {
 // from currency acronynm/ base currency get currency ID
 currencyController.getCurrencyId = async (req, res, next) => {
   try {
-    pool.query(`SELECT * FROM currency_description WHERE currency_acronym = ${req.body.base_currency}`, (err, data) => {
+    pool.query(`SELECT * FROM currency_descriptions WHERE currency_acronym = '${req.body.currency_acronym}'`, (err, data) => {
       if(err) {
-        console.log('Error in getCurrencyId');
+        console.log('Error in getCurrencyId')
+        console.log('this is the error in getCurrencyId in poolquery', err)
         return next(err);
       }
+      console.log('this is data.rows', data.rows)
       res.locals.currency_id = data.rows[0].currency_id
+      console.log(res.locals.currency_id, 'here is res.locals.currency_id')
       return next();
     })
   } catch (err) {
+    console.log('try catch caught in getCurrencyId')
     return next(err)
   }
 }
 
 currencyController.addPortfolio = async (req, res, next) => {
   try {
-    await pool.query(`INSERT INTO positions(currency_id, local_value, user_id)VALUES($1,$2,$3)`, [res.locals.currency_id, req.body.value, req.cookies.id])
+    console.log('user id in addport', req.cookies.idCookie);
+    
+    await pool.query(`INSERT INTO positions(currency_id, local_value, user_id)VALUES($1,$2,$3)`, [res.locals.currency_id, req.body.amt, req.cookies.idCookie])
+    console.log('pool.query in addport occurred')
     return next()
   } catch (err) {
+    console.log('trycatch in addportfolio invoked, error is:', err)
     return next(err)
   }
 }
@@ -102,7 +118,7 @@ currencyController.getCurrencyId = async (req, res, next) => {
 */
 currencyController.getPortfolio = async (req, res, next) => {
   try{ 
-    await pool.query(`SELECT * FROM positions WHERE user_id = '${req.cookies.id}' `, (err, data) =>{
+    await pool.query(`SELECT * FROM positions WHERE user_id = '${req.cookies.idCookie}'`, (err, data) =>{
       res.locals.portfolio = data.rows; 
       return next();
     })
@@ -110,15 +126,24 @@ currencyController.getPortfolio = async (req, res, next) => {
     return next(err)
   }
 } 
+https://api.exchangeratesapi.io/v1/latest?access_key=1ffa62edcf0ab7a273524c03abf11876&base=USD
 
 
-
-
-
-
-
-
-
+currencyController.getAllRates = async (req, res, next) => {
+  try {
+    // taking currency inputs from front end request ML
+    const { curr1, curr2 } = req.body;
+    // request from API the rate at which to convert
+    const result = await fetch(
+      `https://api.exchangeratesapi.io/v1/convert?access_key=${currencyApiKey}&from=${curr1}&to=${curr2}&amount=1`
+    );
+    const json = await result.json();
+    res.locals.rate = json;
+    return next();
+  } catch (err) {
+    return next(err);
+  }
+};
 
 
 
