@@ -35,6 +35,7 @@ app.post('/auth/google', currencyController.setCookie, (req, res) => {
 // });
 
 app.post('/user/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
+  console.log('test to see if it reaches here - app.post addPort post')
   return res.status(200).send('Added to portfolio!');
 })
 
@@ -67,9 +68,9 @@ app.use((err, req, res, next) => {
   console.log(errorObj.log);
   return res.status(errorObj.status).json(errorObj.message);
 });
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server listening on port: ${process.env.PORT}`); // just to test
+// hardcoded into port 3000
+app.listen(3000, () => {
+  console.log(`Server listening on port: 3000`); // just to test
 });
 
 module.exports = app;

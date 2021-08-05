@@ -62,8 +62,10 @@ button:hover {
 
 #together {
   display: flex;
+  flex-wrap: wrap;
   justify-self: center;
   align-self: center;
+  overflow: hidden;
 }
 
 .wrapper__ON_ChoiceBox h2 {

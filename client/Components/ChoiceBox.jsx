@@ -74,12 +74,20 @@ class ChoiceBox extends Component {
                 required
               />
               <div className="button2">
-              <button
-                type="submit"
-                className="signup-btn"
-                onClick={()=>this.submitCurrency}
-              >Add to Portfolio
-              </button>
+                <button
+                  type="submit"
+                  className="signup-btn"
+                  onClick={this.submitCurrency}
+                >Add to Portfolio
+                </button>
+              </div>
+              <div className="button2">
+                <button
+                  type="FED Info"
+                  className="signup-btn"
+                  onClick={() => window.location.href="https://fred.stlouisfed.org/tags/series?t=exchange+rate%3Breal"}>
+                  Federal Reserve Info
+                </button>
               </div>
             </div>
             <h2>{this.props.info.curr1} HISTORY</h2>

@@ -67,7 +67,7 @@ currencyController.checkCookie = async (req, res, next) => {
 // from currency acronynm/ base currency get currency ID
 currencyController.getCurrencyId = async (req, res, next) => {
   try {
-    pool.query(`SELECT * FROM currency_description WHERE currency_acronym = ${req.body.base_currency}`, (err, data) => {
+    await pool.query(`SELECT * FROM currency_description WHERE currency_acronym = ${req.body.base_currency}`, (err, data) => {
       if(err) {
         console.log('Error in getCurrencyId');
         return next(err);
@@ -76,18 +76,27 @@ currencyController.getCurrencyId = async (req, res, next) => {
       return next();
     })
   } catch (err) {
+    console.log("currency ID general error", err);
     return next(err)
   }
 }
 
 currencyController.addPortfolio = async (req, res, next) => {
   try {
-    await pool.query(`INSERT INTO positions(currency_id, local_value, user_id)VALUES($1,$2,$3)`, [res.locals.currency_id, req.body.value, req.cookies.id])
-    return next()
+    await pool.query(`INSERT INTO positions(currency_id, local_value, user_id) VALUES($1,$2,$3)`, [res.locals.currency_id, req.body.value, req.cookies.id], (err, data) => {
+      if(err) {
+        console.log('Error in addPortfolio');
+        return next(err);
+      }
+    }) 
+    return next();
   } catch (err) {
+    console.log("addPortfolio general error", err);
     return next(err)
   }
 }
+
+
 
 /*
 
