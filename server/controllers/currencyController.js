@@ -64,28 +64,6 @@ currencyController.checkCookie = async (req, res, next) => {
 
 }
 
-
-currencyController.setCookie = async (req, res, next) => {
-  try {
-    const { id, token } = req.body
-    queryString = ''
-    // if don't exist, add user
-    // if exist, update access token
-    // place in db
-    pool.query(`INSERT INTO user_table(user_id, amt_usd, fav_rates, base_currency, token)
-      VALUES('${id}', 0, 'ARRAY ${[]}', 1, '${token}') 
-      ON CONFLICT (user_id) DO UPDATE SET token = '${token}'`)
-      .catch(err => {
-        console.log('err in setCookie', err)
-      })
-    // send cookie back to user
-    res.cookie(token)
-  } catch (err) {
-    return next(err)
-  }
-}
-
-
 // from currency acronynm/ base currency get currency ID
 currencyController.getCurrencyId = async (req, res, next) => {
   try {

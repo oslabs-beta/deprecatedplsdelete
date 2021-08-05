@@ -40,18 +40,35 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      curr1: '', //USD
-      curr2: '', //EUR
-      value: '', //your amount
+      curr1: 'USD', //USD
+      curr2: 'EUR', //EUR
+      value: '1', //your amount
       conversionRate: 2, //test rate, will be overwritten by state change
       converted: '',
       history: '', //your amount * conversionrate
+      basecurr: 'USD'
     };
     this.curr1Change = this.curr1Change.bind(this);
     this.curr2Change = this.curr2Change.bind(this);
     this.valueChange = this.valueChange.bind(this);
   }
 
+  componentDidMount() {
+    // const x = Promise.resolve(this.setState({ value: event.target.value }));
+      axios
+        .post('http://localhost:3000/currencyApi', {
+          curr1: this.state.curr1,
+          curr2: this.state.curr2,
+        })
+        .then((response) => {
+          this.setState({ conversionRate: response.data.info.rate });
+          this.setState({ history: response.data.history });
+        })
+        .catch((error) => {
+          console.log('Value change error!!', error, ':(');
+        });
+
+  }
   curr1Change(event) {
     // goes to ChoiceBox
     // res.locals.history
@@ -116,22 +133,20 @@ class App extends Component {
               <button>Contact Us</button>
             </div>
           </div>
-          <div>
-            <Link to="/">
-            <h1>LUCAVERTER</h1>
-            </Link>
-          </div>
+          
       </div>
             <Switch>
               <Route exact path="/">
-                <PositionsTable/>
-                <ConversionBox info={this.state} />
-                <ChoiceBox
-                  info={this.state}
-                  curr1Change={this.curr1Change}
-                  curr2Change={this.curr2Change}
-                  valueChange={this.valueChange}
-                />
+                <div id="together">
+                  <ConversionBox info={this.state} />
+                  <ChoiceBox
+                    info={this.state}
+                    curr1Change={this.curr1Change}
+                    curr2Change={this.curr2Change}
+                    valueChange={this.valueChange}
+                  />
+                  <PositionsTable/>
+                  </div>
                 <Graph info={this.state} />
               </Route>
               <Route path="/login">
