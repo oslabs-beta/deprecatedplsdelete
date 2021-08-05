@@ -81,7 +81,7 @@ class Login extends Component {
         <GoogleLogin
         clientId="689937676919-hqbq0jspagnb2003k5qp25melhte9t0c.apps.googleusercontent.com"
         buttonText="Login with Google"
-        onSuccess={this.responseGoogle}
+        onSuccess={this.handleLogin}
         cookiePolicy="single_host_origin"
       />
           {/* <form method="POST" action="/login">
