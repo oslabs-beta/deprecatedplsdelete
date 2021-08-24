@@ -120,7 +120,7 @@ currencyController.getCurrencyId = async (req, res, next) => {
 */
 currencyController.getPortfolio = async (req, res, next) => {
   try{ 
-    await pool.query(`SELECT * FROM positions WHERE user_id = '${req.cookies.idCookie}'`, (err, data) =>{
+    await pool.query(`SELECT position_id, positions.currency_id, local_value, user_id, currency_acronym FROM positions LEFT JOIN currency_descriptions ON positions.currency_id = currency_descriptions.currency_id WHERE user_id = '${req.cookies.idCookie}'`, (err, data) =>{
       res.locals.portfolio = data.rows; 
       return next();
     })
@@ -128,19 +128,19 @@ currencyController.getPortfolio = async (req, res, next) => {
     return next(err)
   }
 } 
-https://api.exchangeratesapi.io/v1/latest?access_key=1ffa62edcf0ab7a273524c03abf11876&base=USD
+// https://api.exchangeratesapi.io/v1/latest?access_key=1ffa62edcf0ab7a273524c03abf11876&base=USD
 
-
+// https://api.exchangeratesapi.io/v1/convert?access_key=${currencyApiKey}&from=${curr1}&to=${curr2}&amount=1
 currencyController.getAllRates = async (req, res, next) => {
   try {
     // taking currency inputs from front end request ML
-    const { curr1, curr2 } = req.body;
+    const { curr1, curr2, basecurr } = req.body;
     // request from API the rate at which to convert
     const result = await fetch(
-      `https://api.exchangeratesapi.io/v1/convert?access_key=${currencyApiKey}&from=${curr1}&to=${curr2}&amount=1`
+      `https://api.exchangeratesapi.io/v1/latest?access_key=1ffa62edcf0ab7a273524c03abf11876&base=${basecurr}`
     );
     const json = await result.json();
-    res.locals.rate = json;
+    res.locals.rates = json;
     return next();
   } catch (err) {
     return next(err);

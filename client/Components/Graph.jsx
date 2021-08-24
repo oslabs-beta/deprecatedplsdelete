@@ -9,6 +9,18 @@ import {
   YAxis,
   Line,
 } from 'recharts'; // exampleLine built out under Tooltip see line136 // amazing documentation https://recharts.org/en-US/guide/getting-started
+// const React, { Component } = require('react');
+// const render = require('react-dom');
+// const {
+//   ResponsiveContainer,
+//   Tooltip,
+//   AreaChart,
+//   Area,
+//   CartesianGrid,
+//   XAxis,
+//   YAxis,
+//   Line,
+// } = require('recharts');
 
 class Graph extends Component {
   constructor(props) {
