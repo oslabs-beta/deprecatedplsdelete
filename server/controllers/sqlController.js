@@ -29,19 +29,24 @@ sqlController.getTableData = async function (req, res, next) {
       `SELECT ARRAY(SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE')`
     );
 
-//`SELECT array_agg(table_name) FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'`
-    const junk = arrayTables.rows[0].array // string '{this is some bullshit we're going to convert}'
+    //`SELECT array_agg(table_name) FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'`
+    const junk = arrayTables.rows[0].array; // string '{this is some bullshit we're going to convert}'
     const junkString = junk.slice(1, junk.length - 1); // cutting off brackets at the end
-    const arrayString = junkString.split(',') // string[]
+    const arrayString = junkString.split(","); // string[]
     console.log(`arrayString`, arrayString);
-    
-    const allTables = {}
+
+    const allTables = {};
     for (let i = 0; i < arrayString.length; i++) {
-      const columnQuery = `select table_name, column_name, ordinal_position, column_default, data_type, udt_name from information_schema.columns where table_name = $1`
-      const {rows} = await query(columnQuery, [arrayString[i]]) //arrays
+      const columnQuery = `select table_name, column_name, ordinal_position, column_default, data_type, udt_name from information_schema.columns where table_name = $1`;
+      const { rows } = await query(columnQuery, [arrayString[i]]); //arrays
       allTables[arrayString[i]] = rows;
     }
-    const foreignKeyQuery = await query(`select kcu.table_name as foreign_table, '>-' as rel, rel_tco.table_name as primary_table, string_agg(kcu.column_name, ', ') as fk_columns, kcu.constraint_name, tco.constraint_type from information_schema.table_constraints tco join information_schema.key_column_usage kcu on tco.constraint_schema = kcu.constraint_schema and tco.constraint_name = kcu.constraint_name join information_schema.referential_constraints rco on tco.constraint_schema = rco.constraint_schema
+    console.log(`ALLTABLES!!`, allTables);
+
+    res.locals.allTables = allTables;
+
+    const foreignKeyQuery =
+      await query(`select kcu.table_name as foreign_table, '>-' as rel, rel_tco.table_name as primary_table, string_agg(kcu.column_name, ', ') as fk_columns, kcu.constraint_name, tco.constraint_type from information_schema.table_constraints tco join information_schema.key_column_usage kcu on tco.constraint_schema = kcu.constraint_schema and tco.constraint_name = kcu.constraint_name join information_schema.referential_constraints rco on tco.constraint_schema = rco.constraint_schema
        and tco.constraint_name = rco.constraint_name
 join information_schema.table_constraints rel_tco
        on rco.unique_constraint_schema = rel_tco.constraint_schema
@@ -56,10 +61,10 @@ group by kcu.table_schema,
 order by kcu.table_schema,
       kcu.table_name`);
 
-  
+    res.locals.foreignKeys = foreignKeyQuery.rows;
 
     //allTables will be an object, keys are table names & values are full arrays with each column & info as an object
-    //console.log('Foreign Key', foreignKeyQuery.rows); -> send foreignKeyQuery.rows to the front-end
+    console.log("Foreign Key", foreignKeyQuery.rows); // -> send foreignKeyQuery.rows to the front-end
 
     const primaryKeyQuery = await query(`select kcu.table_name,
     tco.constraint_name,
@@ -75,18 +80,18 @@ group by tco.constraint_name,
     kcu.table_name
 order by kcu.table_schema,
       kcu.table_name`);
-    //console.log(`primaryKeyQuery`, primaryKeyQuery.rows); -> send primaryKeyQuery.rows to the front-end
-// -- 2. query each table for columns, column types, primary key, foreign keys
-// --   each query would return multiple columns, column types, ONE pk, multiple fks
-      // to get all column names => SELECT column_name[, data_type] FROM information_schema.columns WHERE table_name = <nameoftablehere>
-      // infomation schema. columns column name, data_type
+    res.locals.primaryKeys = primaryKeyQuery.rows;
+    console.log(`primaryKeyQuery`, primaryKeyQuery.rows); // -> send primaryKeyQuery.rows to the front-end
+    // -- 2. query each table for columns, column types, primary key, foreign keys
+    // --   each query would return multiple columns, column types, ONE pk, multiple fks
+    // to get all column names => SELECT column_name[, data_type] FROM information_schema.columns WHERE table_name = <nameoftablehere>
+    // infomation schema. columns column name, data_type
 
-
-      //CHECK on information_schema:
-        // element_types, foreign_data_wrappers, foreign_table_options, foreign_tables, 
-      // `SELECT junk1, junk2, junk3, junk4 FROM $1(template literal) `
-      //  ($1) === arrayString[i]
-      // tableData.push(eachTable);
+    //CHECK on information_schema:
+    // element_types, foreign_data_wrappers, foreign_table_options, foreign_tables,
+    // `SELECT junk1, junk2, junk3, junk4 FROM $1(template literal) `
+    //  ($1) === arrayString[i]
+    // tableData.push(eachTable);
     // }
 
     // res.locals.finalData = finalData; // will be an array of table objects
