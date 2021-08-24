@@ -41,9 +41,41 @@ sqlController.getTableData = async function (req, res, next) {
       const {rows} = await query(columnQuery, [arrayString[i]]) //arrays
       allTables[arrayString[i]] = rows;
     }
+    const foreignKeyQuery = await query(`select kcu.table_name as foreign_table, '>-' as rel, rel_tco.table_name as primary_table, string_agg(kcu.column_name, ', ') as fk_columns, kcu.constraint_name, tco.constraint_type from information_schema.table_constraints tco join information_schema.key_column_usage kcu on tco.constraint_schema = kcu.constraint_schema and tco.constraint_name = kcu.constraint_name join information_schema.referential_constraints rco on tco.constraint_schema = rco.constraint_schema
+       and tco.constraint_name = rco.constraint_name
+join information_schema.table_constraints rel_tco
+       on rco.unique_constraint_schema = rel_tco.constraint_schema
+       and rco.unique_constraint_name = rel_tco.constraint_name
+where tco.constraint_type = 'FOREIGN KEY' 
+group by kcu.table_schema,
+      kcu.table_name,
+      rel_tco.table_name,
+      rel_tco.table_schema,
+      kcu.constraint_name,
+      tco.constraint_type
+order by kcu.table_schema,
+      kcu.table_name`);
+
+  
 
     //allTables will be an object, keys are table names & values are full arrays with each column & info as an object
-    console.log('ALL TABLES HERE', allTables)
+    //console.log('Foreign Key', foreignKeyQuery.rows); -> send foreignKeyQuery.rows to the front-end
+
+    const primaryKeyQuery = await query(`select kcu.table_name,
+    tco.constraint_name,
+    string_agg(kcu.column_name,', ') as Primary_key_columns
+from information_schema.table_constraints tco
+join information_schema.key_column_usage kcu 
+  on kcu.constraint_name = tco.constraint_name
+  and kcu.constraint_schema = tco.constraint_schema
+  and kcu.constraint_name = tco.constraint_name
+where tco.constraint_type = 'PRIMARY KEY'
+group by tco.constraint_name,
+    kcu.table_schema,
+    kcu.table_name
+order by kcu.table_schema,
+      kcu.table_name`);
+    //console.log(`primaryKeyQuery`, primaryKeyQuery.rows); -> send primaryKeyQuery.rows to the front-end
 // -- 2. query each table for columns, column types, primary key, foreign keys
 // --   each query would return multiple columns, column types, ONE pk, multiple fks
       // to get all column names => SELECT column_name[, data_type] FROM information_schema.columns WHERE table_name = <nameoftablehere>
