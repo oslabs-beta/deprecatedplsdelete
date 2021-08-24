@@ -1,5 +1,5 @@
-const express = require('express');
-const sqlController = require('./controllers/sqlController.js');
+const express = require("express");
+const sqlController = require("./controllers/sqlController.js");
 // const userController = require('../controllers/userController.js');
 // const cookieController = require('../controllers/cookieController');
 // const sessionController = require('../controllers/sessionController');
@@ -36,7 +36,6 @@ const router = express.Router();
 //     res.redirect('http://localhost:8080/userinventory')
 //   });
 
-
 //res.status(200).json(res.locals.items));
 
 // router.post('/addItem/:user',
@@ -44,12 +43,19 @@ const router = express.Router();
 //   gearController.getItems,
 //   (req, res) => res.status(200).json(res.locals.items));
 
-router.get('/uri',
+router.get(
+  "/uri",
   sqlController.getTableData,
   // sqlController.visualize,
   // gqlController.makeSchema,
   // gqlController.makeResolver,
-  (req, res) => res.status(200).json(res.locals.arrayTables));
+  (req, res) =>
+    res.status(200).json({
+      allTables: res.locals.allTables,
+      foreignKeys: res.locals.foreignKeys,
+      primaryKeys: res.locals.primaryKeys,
+    })
+);
 
 // router.post('/deleteItem',
 //   gearController.deleteItem,

@@ -1,80 +1,53 @@
-const express = require('express');
 const path = require('path');
-const currencyApi = require('./routes/currencyApi');
-const apiRouter = require('./routes/router')
-const userRouter = require('./routes/user');
-const cors = require('cors');
-const currencyController = require('./controllers/currencyController');
-const dotenv = require('dotenv');
-dotenv.config({path: path.resolve(__dirname, '../config.env' )})
-const cookie = require('cookie');
-const cookieParser = require('cookie-parser');
-
+const express = require('express');
 const app = express();
-app.use(cookieParser())
+const router = require('./router.js');
+const PORT = 3000;
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json()); //bodyParser deprecatd ML
-app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 
-app.use(cors());
-// define route handlers
-app.use('/api', apiRouter);
-app.use('/currencyApi', currencyApi);
-app.use('/user', userRouter);
-
-app.post('/auth/google', currencyController.setCookie, (req, res) => {
-  return res.status(200).json('success');
-})
-
-// oops did u think any of the buttons below worked lol
-// app.get('/login', (req, res) => {
-//   res.status(200).render(path.join(__dirname, '../client/Login.jsx'));
-// });
-
-// app.get('/signup', (req, res) => {
-//   res.render('../client/Signup.jsx'); //ILLEGAL in react no?
-// });
-
-app.post('/addPort', currencyController.getCurrencyId, currencyController.addPortfolio, (req, res) => {
-  return res.status(200).send('Added to portfolio!');
-})
-
-// app.post('/signup', databaseController.createUser, (req, res) => {
-//   res.status(200).redirect('/'); //ILLEGAL in react no?
-// });
-
-app.get('/user/getPort', currencyController.getPortfolio, (req, res) => {
- return res.status(200).json(res.locals.portfolio);
-
-})
-
-app.post('/getAllRates', currencyController.getAllRates, (req,res) => {
-  return res.status(200).json(res.locals.rates)
-})
-/**
- * 404 handler
- */
-app.use('*', (req, res) => {
-  res.status(404).send('Not Found');
-});
 
 /**
- * Global error handler
+ * handle parsing request body
  */
-app.use((err, req, res, next) => {
-  const defaultErr = {
-    log: 'Express error handler caught unknown middleware error',
-    status: 500,
-    message: { err: 'An error occurred' },
-  };
-  const errorObj = Object.assign({}, defaultErr, err);
-  console.log(errorObj.log);
-  return res.status(errorObj.status).json(errorObj.message);
-});
-// hardcoded into port 3000
-app.listen(3000, () => {
-  console.log(`Server listening on port: 3000`); // just to test
-});
+ app.use(express.json());
+ app.use(express.urlencoded({ extended: true }));
+ 
+ /**
+  * handle requests for static files
+  */
+ //app.use(express.static(path.resolve(__dirname, '../client'))); // look over this later
+ app.use(express.static(path.join(__dirname, '../')));
+ 
+ /**
+  * define route handlers
+  */
+app.use('/api', router);
+ 
 
-module.exports = app;
+ 
+ // catch-all route handler for any requests to an unknown route
+ app.use((req, res) => res.status(404).send('This is not the page you\'re looking for...'));
+
+
+ 
+
+ //Error handling
+ app.use((err, req, res, next) => {
+   const defaultErr = {
+     log: 'Express error handler caught unknown middleware error',
+     status: 500,
+     message: { err: 'An error occurred' },
+   };
+   const errorObj = Object.assign({}, defaultErr, err);
+   console.log(errorObj.log);
+   return res.status(errorObj.status).json(errorObj.message);
+ });
+ 
+ /**
+  * start server
+  */
+ app.listen(PORT, () => {
+   console.log(`Server listening on port: ${PORT}...`);
+ });
+ 
+ module.exports = app;
