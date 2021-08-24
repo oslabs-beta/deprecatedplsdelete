@@ -1,8 +1,11 @@
-const { query } = require('../models/postgresModel.js');
-//  "postgres://vdnvhfkq:sYiMTdCmk1vs2br_eUrrmX1unPvfucdW@batyr.db.elephantsql.com/vdnvhfkq";
-const fs = require("fs");
-//const sqlQuery = fs.readFileSync("./sqlQuery.sql", "utf8");
+const { query } = require("./dbmodel");
+const Pool = require("pg");
 
+const PG_URI = "fill in here";
+const example_URI =
+  "postgres://vdnvhfkq:sYiMTdCmk1vs2br_eUrrmX1unPvfucdW@batyr.db.elephantsql.com/vdnvhfkq";
+const fs = require("fs");
+const sqlQuery = fs.readFileSync("server/sqlQuery.sql", "utf8");
 
 //need to connect to PSQL PG_URI | example_URI
 const sqlController = {};
@@ -22,18 +25,34 @@ next()
 sqlController.getTableData = async function (req, res, next) {
   try {
     //what type are we getting here?
-    console.log('entered sql controller get table data');
-    const arrayTables = await query(`SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'`);
-    // const tableData = [];
-    // for (let i = 0; i < arrayTables.length; i++) {
+    const arrayTables = await query(
+      `SELECT ARRAY(SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE')`
+    );
+
+//`SELECT array_agg(table_name) FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE'`
+    const junk = arrayTables.rows[0].array // string '{this is some bullshit we're going to convert}'
+    const junkString = junk.slice(1, junk.length - 1); // cutting off brackets at the end
+    const arrayString = junkString.split(',') // string[]
+    console.log(`can you see me now?`, arrayString);
+    
+    // for (let i = 0; i < arrayString.length; i++) {
     //   //what type are we getting here?
-    //   const eachTable = await db.query(`SELECT table_name
-    //   FROM information_schema.tables   
-    //  WHERE table_schema='public'
-    //    AND table_type='BASE TABLE';`);
-    //   tableData.push(eachTable);
+    //   const eachTable = await db.query(`SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';`);
+
+// -- 2. query each table for columns, column types, primary key, foreign keys
+// --   each query would return multiple columns, column types, ONE pk, multiple fks
+      // to get all column names => SELECT column_name[, data_type] FROM information_schema.columns WHERE table_name = <nameoftablehere>
+      // infomation schema. columns column name, data_type
+
+
+      //CHECK on information_schema:
+        // element_types, foreign_data_wrappers, foreign_table_options, foreign_tables, 
+      // `SELECT junk1, junk2, junk3, junk4 FROM $1(template literal) `
+      //  ($1) === arrayString[i]
+      // tableData.push(eachTable);
     // }
-    res.locals.arrayTables = arrayTables; // will be an array of table objects
+
+    res.locals.finalData = finalData; // will be an array of table objects
     return next();
   } catch (err) {
     console.log("HIT CATCH ERROR IN sqlC.getTableData: ", err);
@@ -46,9 +65,9 @@ sqlController.getTableData = async function (req, res, next) {
   }
 };
 
-// sqlController.visualize = function () {
-//   try {
-//   } catch (err) {}
-// };
+sqlController.visualize = function () {
+  try {
+  } catch (err) {}
+};
 
 module.exports = sqlController;

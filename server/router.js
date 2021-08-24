@@ -49,7 +49,7 @@ router.get('/uri',
   // sqlController.visualize,
   // gqlController.makeSchema,
   // gqlController.makeResolver,
-  (req, res) => res.status(200).json(res.locals.arrayTables));
+  (req, res) => res.status(200).json(res.locals.finalData));
 
 // router.post('/deleteItem',
 //   gearController.deleteItem,
