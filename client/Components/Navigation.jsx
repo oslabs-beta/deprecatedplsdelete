@@ -3,6 +3,11 @@ import { render } from 'react-dom';
 import Login from '../User/Login.jsx';
 import Signup from '../User/Signup.jsx';
 import { Redirect } from 'react-router-dom';
+// const React, { Component } = require('react');
+// const render = require('react-dom');
+// const Login = require('../User/Login.jsx')
+// const Signup = require('../User/Signup.jsx');
+// const Redirect = require('react-router-dom');
 
 class Navigation extends Component {
   // need state to keep track of redirect
@@ -32,20 +37,20 @@ class Navigation extends Component {
                 this.setState({ currentpage: 'signup' });}}
             >
               {' '}
-              Signup{' '}
+              Sandbox{' '}
             </button>
             <button
               className="login-btn"
               onClick={(event) => (window.location.href = '/login')}
             >
               {' '}
-              Login{' '}
+              Docs{' '}
             </button>
           </div>
           
           <div className="rightButtons">
-            <button>Learn More</button>
-            <button>Contact Us</button>
+            <button>Github</button>
+            <button>Squad</button>
           </div>
         </div>
         <div>

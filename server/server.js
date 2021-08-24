@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const currencyApi = require('./routes/currencyApi');
+const apiRouter = require('./routes/router')
 const userRouter = require('./routes/user');
 const cors = require('cors');
 const currencyController = require('./controllers/currencyController');
@@ -18,6 +19,7 @@ app.use(express.static(path.join(__dirname, '../'))); //serves the index.html
 
 app.use(cors());
 // define route handlers
+app.use('/api', apiRouter);
 app.use('/currencyApi', currencyApi);
 app.use('/user', userRouter);
 

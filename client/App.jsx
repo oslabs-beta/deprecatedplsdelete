@@ -3,11 +3,13 @@ import axios from 'axios';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Login from './User/Login.jsx';
 import Signup from './User/Signup.jsx';
-import ChoiceBox from './Components/ChoiceBox.jsx';
+import UriEntry from './Components/UriEntry.jsx';
 import Graph from './Components/Graph.jsx';
 import Navigation from './Components/Navigation.jsx';
 import ConversionBox from './Components/ConversionBox.jsx';
 import PositionsTable from './Components/PositionsTable.jsx'
+import theme from './theme';
+import { ThemeProvider } from '@material-ui/core';
 
 // | App
 //   |Graph (Graph) (only accesses database?)
@@ -139,7 +141,7 @@ class App extends Component {
       <Router>
         <div className="header">
           <div className="topButtons">
-            <div className="leftButtons">
+            <img id="logo" src='./dist/logo.png' />
               <Link to='/signup'>
                 <button
                   className="signup-btn"
@@ -149,7 +151,7 @@ class App extends Component {
                   //   this.setState({ currentpage: 'signup' });}}
                 >
                   {' '}
-                  Signup{' '}
+                  Sandbox{' '}
                 </button>
               </Link>
 
@@ -158,41 +160,20 @@ class App extends Component {
                   className="login-btn"
                 >
                   {' '}
-                  Login{' '}
+                  Docs{' '}
                 </button>
               </Link>
-            </div>
-            <div className="rightButtons">
-              <button>Learn More</button>
-              <button>Contact Us</button>
-            </div>
+            
+            
+              <button>Github</button>
+              <button>Squad</button>
+            
           </div>
-          
+          <ThemeProvider theme={theme}>
+        <UriEntry />
+        </ThemeProvider>
       </div>
-            <Switch>
-              <Route exact path="/">
-                <div id="together">
-                  <ConversionBox info={this.state} />
-                  <ChoiceBox
-                    getPortfolio={this.getPortfolio}
-                    info={this.state}
-                    curr1Change={this.curr1Change}
-                    curr2Change={this.curr2Change}
-                    valueChange={this.valueChange}
-                    baseCurrChange={this.baseCurrChange}
-                  />
-                  <PositionsTable info={this.state}
-                   getPortfolio={this.getPortfolio} />
-                  </div>
-                <Graph info={this.state} />
-              </Route>
-              <Route path="/login">
-                <Login/>
-              </Route>
-              <Route path="/signup">
-                <Signup/>
-              </Route>
-            </Switch>
+            
       </Router>
     );
   }

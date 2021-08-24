@@ -3,6 +3,11 @@ import { render } from 'react-dom';
 import { Table, TableBody, TableCell, TableContainer, TableRow, TableHead  } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+// const React, { Component } = require('react');
+// const { render } = require('react-dom')
+// const { Table, TableBody, TableCell, TableContainer, TableRow, TableHead  } = require('@material-ui/core')
+// const { makeStyles } = require('@material-ui/core/styles')
+// const Paper = require('@material-ui/core/Paper')
 
 // https://material-ui.com/components/tables/
 

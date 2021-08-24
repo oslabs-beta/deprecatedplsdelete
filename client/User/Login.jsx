@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+// const React {Component} = require ('react')
 import {
   BrowserRouter as Router,
   Switch,

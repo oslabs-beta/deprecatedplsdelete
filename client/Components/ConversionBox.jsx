@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+// const React, { Component } = require('react');
+// const render = require('react-dom');
 
 class ConversionBox extends Component {
   render() {
