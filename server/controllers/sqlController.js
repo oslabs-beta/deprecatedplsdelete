@@ -33,12 +33,17 @@ sqlController.getTableData = async function (req, res, next) {
     const junk = arrayTables.rows[0].array // string '{this is some bullshit we're going to convert}'
     const junkString = junk.slice(1, junk.length - 1); // cutting off brackets at the end
     const arrayString = junkString.split(',') // string[]
-    console.log(`can you see me now?`, arrayString);
+    console.log(`arrayString`, arrayString);
     
-    // for (let i = 0; i < arrayString.length; i++) {
-    //   //what type are we getting here?
-    //   const eachTable = await db.query(`SELECT table_name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE';`);
+    const allTables = {}
+    for (let i = 0; i < arrayString.length; i++) {
+      const columnQuery = `select table_name, column_name, ordinal_position, column_default, data_type, udt_name from information_schema.columns where table_name = $1`
+      const {rows} = await query(columnQuery, [arrayString[i]]) //arrays
+      allTables[arrayString[i]] = rows;
+    }
 
+    //allTables will be an object, keys are table names & values are full arrays with each column & info as an object
+    console.log('ALL TABLES HERE', allTables)
 // -- 2. query each table for columns, column types, primary key, foreign keys
 // --   each query would return multiple columns, column types, ONE pk, multiple fks
       // to get all column names => SELECT column_name[, data_type] FROM information_schema.columns WHERE table_name = <nameoftablehere>
@@ -52,7 +57,7 @@ sqlController.getTableData = async function (req, res, next) {
       // tableData.push(eachTable);
     // }
 
-    res.locals.finalData = finalData; // will be an array of table objects
+    // res.locals.finalData = finalData; // will be an array of table objects
     return next();
   } catch (err) {
     console.log("HIT CATCH ERROR IN sqlC.getTableData: ", err);
