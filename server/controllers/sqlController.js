@@ -1,9 +1,9 @@
 const { query } = require("./dbmodel");
-const Pool = require("pg");
+// const Pool = require("pg");
 
-const PG_URI = "fill in here";
-const example_URI =
-  "postgres://vdnvhfkq:sYiMTdCmk1vs2br_eUrrmX1unPvfucdW@batyr.db.elephantsql.com/vdnvhfkq";
+// const PG_URI = "fill in here";
+// const example_URI =
+//   "postgres://vdnvhfkq:sYiMTdCmk1vs2br_eUrrmX1unPvfucdW@batyr.db.elephantsql.com/vdnvhfkq";
 const fs = require("fs");
 const sqlQuery = fs.readFileSync("server/sqlQuery.sql", "utf8");
 
